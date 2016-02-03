@@ -1,0 +1,26 @@
+/*框架主区域使用的背景色*/
+body { font-family:Verdana; font-size:14px; margin:0;
+      
+       background:url(images/login.jpg);
+       }
+
+#container {margin:0 auto; width:900px;}
+#header { height:74px; 
+background:#6cf url('images/header_bg.jpg'); 
+margin-bottom:5px;
+          }
+#mainContent { height:600px; margin-bottom:5px; background:#FFF8DC;}
+#content { float:right; width:100%; height:495px; 
+background:#cff;
+background-image:url(images/login.jpg);
+background-position:50% 40%;
+background-repeat:repeat-x;
+}/*因为是固定宽度，采用左右浮动方法可有效避免ie 3像素bug*/
+#footer { height:60px; background:#6cf;}
+#circle {
+    font-family: Arial;
+    border: 2px solid #379082;
+    border-radius: 20px;
+    padding: 30px 30px;
+    height:450px;
+}
