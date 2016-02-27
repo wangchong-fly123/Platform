@@ -21,8 +21,10 @@ case $1 in
     table_data_file=$base_path/serverlist/tbl_zoneinfo_xy_ios.txt;;  
     xy_escape)
     table_data_file=$base_path/serverlist/tbl_zoneinfo_xy_escape.txt;;  
+    papa_android)
+    table_data_file=$base_path/serverlist/tbl_zoneinfo_papa_android.txt;;  
     *)
-    echo "$0 [0 | xy_android | xy_ios | xy_escape]" 
+    echo "$0 [0 | xy_android | xy_ios | xy_escape | papa_android]" 
     exit 1;;
 esac
 
@@ -42,6 +44,12 @@ echo "
 use $db_name;
 " | mysqlimport -h$db_host -P$db_port -u$db_user --password=$db_password \
     $db_name $table_data_file
+
+cache_file=$base_path/cache/*{$0}.txt
+if [ -f $cache_file ]
+then
+    rm $cache_file -rf
+fi
 
 if [ $? -ne 0 ]
 then

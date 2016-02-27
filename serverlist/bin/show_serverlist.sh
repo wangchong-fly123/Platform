@@ -20,8 +20,10 @@ case $1 in
     table_name=tbl_zoneinfo_xy_ios;;  
     xy_escape)
     table_name=tbl_zoneinfo_xy_escape;;  
+    papa_android)
+    table_name=tbl_zoneinfo_papa_android;;  
     *)
-    echo "$0 [0 | xy_android | xy_ios | xy_escape]" 
+    echo "$0 [0 | xy_android | xy_ios | xy_escape | papa_android]" 
     exit 1;;
 esac
 
