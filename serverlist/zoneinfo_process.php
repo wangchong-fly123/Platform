@@ -17,7 +17,17 @@ if(!is_numeric($game) || !is_numeric($type))
     $service->error("zoneinfo", 2);
 }
 $service->init();
-$array = $service->getZoneInfo($game, $type, $platform);
+
+$cache_service = new CacheService();
+$cache_service->init();
+$file_name = "bin/cache/zoneinfo_".$game."_".$type."_".$platform.".txt";
+$array = $cache_service->getCacheInfo($file_name);
+if (null == $array) {
+    $array = $service->getZoneInfo($game, $type, $platform);
+    if (count($array)) {
+        $cache_service->setCacheInfo($file_name, $array);
+    }
+}
 if (count($array)) {
     $service->response(array("zoneinfo" => $array));
 } else {
