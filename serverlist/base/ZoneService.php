@@ -50,13 +50,16 @@ final class ZoneService
     public function getZoneInfo($game, $type, $platform)
     {   
         $dbh = $this->getDBHandler();
+        $info = array();
         $table_name = Common::getZoneInfoTableName($platform);
+        if ($table_name == "") {
+            return $info;
+        }
 
         $sth = $dbh->prepare('select `ZONE`,`NAME`,`IP`,`PORT`,`WEBPORT` from `'.$table_name.'`'.
                 ' where `GAME`= :game and `TYPE`= :type');
         $sth->bindParam(":game", $game);
         $sth->bindParam(":type", $type);
-        $info = array();
         if (@$sth->execute() === false) {
         } else {
             while($res = $sth->fetch(PDO::FETCH_ASSOC)){

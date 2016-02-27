@@ -7,6 +7,8 @@ final class ServerConfig
     public static $db_name;
     public static $db_user;
     public static $db_password;
+    public static $cache_switch;
+    public static $cache_timeout;
 
     public static function init()
     {
@@ -23,6 +25,8 @@ final class ServerConfig
         self::$db_name = $array["dbName"];
         self::$db_user = $array["dbUser"];
         self::$db_password = $array["dbPwd"];
+        self::$cache_switch = $array["cacheSwitch"];
+        self::$cache_timeout = $array["cacheTimeout"];
         return true;
     }
 }

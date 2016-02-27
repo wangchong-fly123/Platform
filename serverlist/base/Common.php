@@ -30,11 +30,16 @@ final class Common
 
         if ($platform === "xy_ios" ||
              $platform === "xy_android" ||
-             $platform === "xy_escape") {
+             $platform === "xy_escape" ||
+             $platform === "banshu" ||
+             $platform === "papa_android") {
             $table_name .= '_'.$platform;
             return $table_name;
+        } elseif ($platform === "0") {
+            return $table_name;
+        } else {
+            return "";
         }
-        return $table_name;
     }
 
     public static function encodePassword($password)
