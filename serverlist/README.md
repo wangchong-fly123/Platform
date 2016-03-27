@@ -20,6 +20,9 @@
             给tbl_zoneinfo_xy_ios表中添加了serverlist/tbl_zoneinfo_xy_ios.txt
             文件中的所有数据
     1.5 最后可以运行 ./show_serverlist.sh xy_ios 查看xy的ios渠道服务器列表
+    1.6 设置canche目录权限
+        chown apache:apache /opt/www/serverlist/bin/cache
+        chmod -R 0755 /opt/www/serverlist/bin/cache
 2.添加服务器列表
     2.1 比如xy平台的安卓渠道需要新开一个服务器
         2.1.1 在serverlist/tbl_zoneinfo_xy_android.txt中写入一行数据(有且只有一条)
