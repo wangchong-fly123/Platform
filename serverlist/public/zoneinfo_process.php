@@ -21,7 +21,7 @@ $service->init();
 
 $cache_service = new CacheService();
 $cache_service->init();
-$file_name = "bin/cache/zoneinfo_".$game."_".$type."_".$platform.".txt";
+$file_name = "../bin/cache/zoneinfo_".$game."_".$type."_".$platform.".txt";
 $array = $cache_service->getCacheInfo($file_name);
 if (null == $array) {
     $array = $service->getZoneInfo($game, $type, $platform);
