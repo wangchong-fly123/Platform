@@ -11,6 +11,7 @@ CREATE TABLE `tbl_zoneinfo` (
     `PORT` int(10) unsigned NOT NULL default 0,
     `WEBPORT` int(10) unsigned NOT NULL default 0,
     `TYPE` int(10) unsigned NOT NULL default 0,
+    `STATUS` int(10) unsigned NOT NULL default 0,
     `DESC` varchar(33) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '' COMMENT '描述',
     PRIMARY KEY  (`GAME`, `ZONE`)
 ) ENGINE=InnoDB;
@@ -27,6 +28,7 @@ CREATE TABLE `tbl_zoneinfo_banshu` (
     `PORT` int(10) unsigned NOT NULL default 0,
     `WEBPORT` int(10) unsigned NOT NULL default 0,
     `TYPE` int(10) unsigned NOT NULL default 0,
+    `STATUS` int(10) unsigned NOT NULL default 0,
     `DESC` varchar(33) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '' COMMENT '描述',
     PRIMARY KEY  (`GAME`, `ZONE`)
 ) ENGINE=InnoDB;
@@ -43,6 +45,7 @@ CREATE TABLE `tbl_zoneinfo_papa_android` (
     `PORT` int(10) unsigned NOT NULL default 0,
     `WEBPORT` int(10) unsigned NOT NULL default 0,
     `TYPE` int(10) unsigned NOT NULL default 0,
+    `STATUS` int(10) unsigned NOT NULL default 0,
     `DESC` varchar(33) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '' COMMENT '描述',
     PRIMARY KEY  (`GAME`, `ZONE`)
 ) ENGINE=InnoDB;
@@ -59,6 +62,7 @@ CREATE TABLE `tbl_zoneinfo_xy_ios` (
     `PORT` int(10) unsigned NOT NULL default 0,
     `WEBPORT` int(10) unsigned NOT NULL default 0,
     `TYPE` int(10) unsigned NOT NULL default 0,
+    `STATUS` int(10) unsigned NOT NULL default 0,
     `DESC` varchar(33) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '' COMMENT '描述',
     PRIMARY KEY  (`GAME`, `ZONE`)
 ) ENGINE=InnoDB;
@@ -75,6 +79,7 @@ CREATE TABLE `tbl_zoneinfo_xy_android` (
     `PORT` int(10) unsigned NOT NULL default 0,
     `WEBPORT` int(10) unsigned NOT NULL default 0,
     `TYPE` int(10) unsigned NOT NULL default 0,
+    `STATUS` int(10) unsigned NOT NULL default 0,
     `DESC` varchar(33) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '' COMMENT '描述',
     PRIMARY KEY  (`GAME`, `ZONE`)
 ) ENGINE=InnoDB;
@@ -91,6 +96,7 @@ CREATE TABLE `tbl_zoneinfo_xy_escape` (
     `PORT` int(10) unsigned NOT NULL default 0,
     `WEBPORT` int(10) unsigned NOT NULL default 0,
     `TYPE` int(10) unsigned NOT NULL default 0,
+    `STATUS` int(10) unsigned NOT NULL default 0,
     `DESC` varchar(33) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '' COMMENT '描述',
     PRIMARY KEY  (`GAME`, `ZONE`)
 ) ENGINE=InnoDB;

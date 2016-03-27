@@ -56,7 +56,7 @@ final class ZoneService
             return $info;
         }
 
-        $sth = $dbh->prepare('select `ZONE`,`NAME`,`IP`,`PORT`,`WEBPORT` from `'.$table_name.'`'.
+        $sth = $dbh->prepare('select `ZONE`,`NAME`,`IP`,`PORT`,`WEBPORT`,`STATUS` from `'.$table_name.'`'.
                 ' where `GAME`= :game and `TYPE`= :type');
         $sth->bindParam(":game", $game);
         $sth->bindParam(":type", $type);
@@ -64,7 +64,8 @@ final class ZoneService
         } else {
             while($res = $sth->fetch(PDO::FETCH_ASSOC)){
                 $info[] =  $res['ZONE'].",". $res['NAME'].",".
-                    $res['IP'].",". $res['PORT'].",".$res['WEBPORT'];
+		    $res['IP'].",". $res['PORT'].",".
+		    $res['WEBPORT'].",".$res['STATUS'];
             }
         }
         return $info;
