@@ -106,4 +106,80 @@ final class Common
         $request_url = $url.'?'.$query_string."sign=".$sign;
         return $request_url;
     }
+    
+    public static function httpRequest($url, $params=array(), $method='get')
+    {
+        $query_string = '';
+        foreach ($params as $key => $value) {
+            $query_string .=
+                rawurlencode($key).'='.
+                rawurlencode($value).'&';
+        }
+        substr($query_string, 0, -1);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        if (strtolower($method) === 'get') {
+            // get method
+            if (strlen($query_string) > 0) {
+                curl_setopt($ch, CURLOPT_URL, $url.'?'.$query_string);
+            } else {
+                curl_setopt($ch, CURLOPT_URL, $url);
+            }
+        } else {
+            // post method
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $query_string);
+        }
+
+        $output = curl_exec($ch);
+        if ($output === false) {
+            error_log(curl_error($ch));
+            curl_close($ch);
+            return false;
+        }
+        curl_close($ch);
+
+        return $output;
+    }
+    
+    public static function checkRequestValid($secret_key, $server_params, $get_params)
+    {
+        if (isset($get_params['sign']) === false ||
+            isset($get_params['ts']) === false) {
+            return false;
+        }
+        $sign = $get_params['sign'];
+        $ts = $get_params['ts'];
+
+        // check ts is in 15 min
+        $now = time();
+        if (abs($now - $ts) > 900) {
+            return false;
+        }
+
+        // get request url
+        $addr = $server_params['HTTP_HOST'];
+        $uri = $server_params['DOCUMENT_URI'];
+        $url = $addr.$uri;
+
+        // remove sign from get_params
+        unset($get_params['sign']);
+
+        // check sign is invalid
+        $sign_string = $url;
+
+        ksort($get_params);
+        foreach ($get_params as $key => $value) {
+            $sign_string .= $key.'='.$value;
+        }
+        $calc_sign = sha1($sign_string.$secret_key);
+        if ($calc_sign !== $sign) {
+            return false;
+        }
+
+        return true;
+    }
 }
