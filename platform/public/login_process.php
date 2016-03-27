@@ -1,5 +1,6 @@
 <?php
-require('base/Config.php');
+
+require('../base/Config.php');
 Config::init();
 $service = new LoginService();
 $service->init();
