@@ -44,7 +44,7 @@ GAME_CENTER_SERVER->SGZJ_SLAVESERVER: 11 返回 check game token
 SGZJ_SLAVESERVER-->SGZJ_APP:12 返回 check game token
 SGZJ_APP->SGZJ_SOCIALSERVER: 13 请求进入游戏
 ```
-![image](https://github.com/wangchong-fly123/Platform/raw/master/anysdk_login.jpg)
+![image](https://github.com/wangchong-fly123/Platform/raw/master/gamecenter/anysdk_login.jpg)
 ##AnySDK 支付
 ```
 APP->AnySDKServer:请求订单号
@@ -60,4 +60,4 @@ SocialServer-->APP:notify charge ok,object info
 SlaveServer-->GameCenterServer:ok响应
 GameCenterServer-->AnySDKServer:ok响应
 ```
-![image](https://github.com/wangchong-fly123/Platform/raw/master/anysdk_pay.jpg)
+![image](https://github.com/wangchong-fly123/Platform/raw/master/gamecenter/anysdk_pay.jpg)
