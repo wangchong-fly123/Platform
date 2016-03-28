@@ -27,7 +27,7 @@
         2.1.1 在serverlist/tbl_zoneinfo_xy_android.txt中写入一行数据(有且只有一条)
         2.1.2 运行 ./add_serverlist.sh xy_android
     2.2 最后可以运行 ./show_serverlist.sh xy_android 查看xy的android渠道服务器列表
-
+```
 ##AnySDK 登陆
 ```
 SGZJ_APP->SDK_SERVER:1请求 token
@@ -43,7 +43,7 @@ SGZJ_SLAVESERVER->GAME_CENTER_SERVER: 10 check game token
 GAME_CENTER_SERVER->SGZJ_SLAVESERVER: 11 返回 check game token
 SGZJ_SLAVESERVER-->SGZJ_APP:12 返回 check game token
 SGZJ_APP->SGZJ_SOCIALSERVER: 13 请求进入游戏
-
+```
 ![image](https://github.com/wangchong-fly123/Platform/raw/master/anysdk_login.jpg)
 ##AnySDK 支付
 ```
@@ -59,4 +59,5 @@ SlaveServer->SocialServer:通知支付成功发放道具
 SocialServer-->APP:notify charge ok,object info
 SlaveServer-->GameCenterServer:ok响应
 GameCenterServer-->AnySDKServer:ok响应
+```
 ![image](https://github.com/wangchong-fly123/Platform/raw/master/anysdk_pay.jpg)
