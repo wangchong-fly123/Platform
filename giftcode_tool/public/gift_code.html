@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>礼包码生成页面</title>
+<link href="../view/layout_LoginAndRegister.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+<div id = "container">
+<div id = "header">
+</div>
+<div id="mainContent">
+<h2>礼包码</h2>
+<div id="circle">
+	<form action="generate_giftcode.php" method="get">
+	<table width="55%" align="center">
+	    <tr><td>长度:</td><td><input type="text" name="length" size="30" maxlength="16" value="" style="width:200px;height:30px"></td></tr>
+	    <tr><td>数量:</td><td><input type="text" name="count" size="30" maxlength="16" value="" style="width:200px;height:30px"></td></tr>
+	    <tr><td>渠道:</td><td><input type="text" name="channel" size="30" maxlength="16" value="" style="width:200px;height:30px"></td></tr>
+		<tr><td>礼包ID:</td><td><input type="text" name="gift_id" size="30" maxlength="16" value="" style="width:200px;height:30px"></td></tr>
+		<tr><td>是否一码多用:</td><td>
+                            <select name="code_type">
+
+                                       <option value="1">是</option>
+
+                                       <option value="0" selected = "selected">否</option>
+                            </select>
+        </td></tr>
+	    <br>
+	    <tr>
+	    <td></td><td><input type="submit" value="生成礼包码" style="width:130px;height:40px;"/>
+                     <input type="reset" value="清空" style="width:60px;height:40px;"/></td>
+	    </tr>
+	</table>
+	</form>
+    <h2><a href="../output/">Download GiftCode</a><h2>
+</div>
+</div>
+
+</div>
+<div id="footer">
+<center>Today is a good day!</center>
+</div>
+</div>
+
+</body>
+</html>
