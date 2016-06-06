@@ -5,8 +5,8 @@ final class MobileService
     private $server_app_ = null;
 
     private $sms_url = 'http://61.145.229.28:8027/MWGate/wmgw.asmx/MongateCsSpSendSmsNew';
-    private $sms_user_id = 'M10238';
-    private $sms_password = '152103';
+    private $sms_user_id = 'Mtest';
+    private $sms_password = 'testpassword';
 
     public function __construct($server_app)
     {
