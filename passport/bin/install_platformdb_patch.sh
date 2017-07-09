@@ -3,7 +3,7 @@
 bin_dir=`dirname $0`
 proj_home=$bin_dir/..
 config_file=$proj_home/settings/config.ini
-db_sql_file=$proj_home/settings/patch/$1
+db_sql_file=$proj_home/settings/sql/patch/$1
 
 if [ ! -f $config_file ]
 then
