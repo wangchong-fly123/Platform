@@ -11,6 +11,8 @@ CREATE TABLE `tbl_account` (
   `mobile_phone` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin COMMENT '手机号',
   `email` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin COMMENT '邮箱',
   `create_time` bigint NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin COMMENT '名字',
+  `id_num` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin COMMENT '身份证号',
   PRIMARY KEY (`uid`),
   UNIQUE KEY unq_account(`account`),
   UNIQUE KEY unq_mobile_phone(`mobile_phone`),
