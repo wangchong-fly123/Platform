@@ -145,3 +145,6 @@ reset_password.php
 附录2: 账号类型
 0: 普通账号
 1: 游客账号
+
+Tips:
+All of the password from the client, must be encrypt with sha1, in the end.
