@@ -73,16 +73,16 @@ final class AccountService
     }
 
     public function createAccount(
-        $account, $password, $account_type, $register_type)
+        $account, $password, $account_type, $register_type, $name = '', $id_num = '')
     {
         $dbh = $this->server_app_->getDBHandler();
         $sth = $dbh->prepare(
             'insert into `tbl_account`'.
             '(`account`, `password`, `account_type`, `register_type`, '.
-            '`mobile_phone`, `email`, `create_time`) '.
+            '`mobile_phone`, `email`, `create_time`, `name`, `id_num`) '.
             'values'.
             '(:account, :password, :account_type, :register_type, '.
-            ':mobile_phone, :email, :create_time)');
+            ':mobile_phone, :email, :create_time, :name, :id_num)');
         $sth->bindValue(':account', $account, PDO::PARAM_STR);
         $sth->bindValue(':password',
             $this->getPasswordHash($account, $password), PDO::PARAM_STR);
@@ -95,6 +95,8 @@ final class AccountService
         }
         $sth->bindValue(':email', null, PDO::PARAM_INT);
         $sth->bindValue(':create_time', time(), PDO::PARAM_INT);
+        $sth->bindValue(':name', $name, PDO::PARAM_STR);
+        $sth->bindValue(':id_num', $id_num, PDO::PARAM_STR);
 
         if (@$sth->execute() === false) {
             return false;
@@ -105,14 +107,17 @@ final class AccountService
         return $uid;
     }
 
-    public function convertGuest($account, $new_account, $new_password)
+    public function convertGuest($account, $new_account,
+        $new_password, $name = '', $id_num= '')
     {
         $dbh = $this->server_app_->getDBHandler();
         $sth = $dbh->prepare(
             'update `tbl_account` set '.
             '`account` = :new_account, '.
             '`password` = :new_password, '.
-            '`account_type` = :new_account_type '.
+            '`account_type` = :new_account_type, '.
+            '`name` = :name, '.
+            '`id_num` = :id_num '.
             'where `account` = :account and '.
             '`account_type` = :account_type');
         $sth->bindValue(':account', $account, PDO::PARAM_STR);
@@ -123,6 +128,8 @@ final class AccountService
             PDO::PARAM_STR);
         $sth->bindValue(':new_account_type',
             AccountType::NORMAL, PDO::PARAM_INT);
+        $sth->bindValue(':name', $name, PDO::PARAM_STR);
+        $sth->bindValue(':id_num', $id_num, PDO::PARAM_STR);
 
         if (@$sth->execute() === false) {
             return false;
@@ -167,6 +174,22 @@ final class AccountService
         return true;
     }
 
+    public function clearMobilePhone($account)
+    {
+        $dbh = $this->server_app_->getDBHandler();
+        $sth = $dbh->prepare(
+            'update `tbl_account` set `mobile_phone` = :mobile_phone '.
+            'where `account` = :account');
+        $sth->bindValue(':account', $account, PDO::PARAM_STR);
+        $sth->bindValue(':mobile_phone', null, PDO::PARAM_NULL);
+
+        if (@$sth->execute() === false) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function getAccountInfoByPhone($mobile_phone)
     {
         $dbh = $this->server_app_->getDBHandler();
@@ -178,6 +201,48 @@ final class AccountService
 
         if (@$sth->execute() === false) {
             Util::error('db get account by phone failed');
+        }
+
+        $ret = $sth->fetch(PDO::FETCH_ASSOC);
+        if ($ret === false) {
+            return false;
+        }
+
+        return $ret;
+    }
+
+    public function getAccountInfoByAccount($account)
+    {
+        $dbh = $this->server_app_->getDBHandler();
+        $sth = $dbh->prepare(
+            'select `uid`, `account`, `password`, `account_type`, '.
+            '`register_type`, `mobile_phone`, `email`, `create_time` '.
+            'from `tbl_account` where `account` = :account');
+        $sth->bindValue(':account', $account, PDO::PARAM_STR);
+
+        if (@$sth->execute() === false) {
+            Util::error('db check password failed');
+        }
+
+        $ret = $sth->fetch(PDO::FETCH_ASSOC);
+        if ($ret === false) {
+            return false;
+        }
+
+        return $ret;
+    }
+
+    public function getAccountInfoByUid($uid)
+    {
+        $dbh = $this->server_app_->getDBHandler();
+        $sth = $dbh->prepare(
+            'select `uid`, `account`, `password`, `account_type`, '.
+            '`register_type`, `mobile_phone`, `email`, `create_time` '.
+            'from `tbl_account` where `uid` = :uid');
+        $sth->bindValue(':uid', $uid, PDO::PARAM_STR);
+
+        if (@$sth->execute() === false) {
+            Util::error('db check password failed');
         }
 
         $ret = $sth->fetch(PDO::FETCH_ASSOC);

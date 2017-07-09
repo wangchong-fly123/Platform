@@ -142,4 +142,13 @@ final class Util
 
         return true;
     }
+
+    public static function checkInternalIp($ip)
+    {
+        $ip_list = array(
+            '180.168.36.210',
+            '112.65.46.8',
+            );
+        return in_array($ip, $ip_list);
+    }
 }
