@@ -9,6 +9,9 @@ if ($app->checkRequestValid($_SERVER, $_POST) === false) {
     Util::error('request invalid');
 }
 
+$name = '';
+$id_num = '';
+
 if (isset($_POST['account']) === false) {
     Util::error('`account` is required');
 }
@@ -20,6 +23,17 @@ if (isset($_POST['new_account']) === false) {
 }
 if (isset($_POST['new_password']) === false) {
     Util::error('`new_password` is required');
+}
+if (isset($_POST['name'])) {
+    $name = $_POST['name'];
+}
+if (isset($_POST['id_num'])) {
+    $id_num = $_POST['id_num'];
+
+    // check id_num
+    if (preg_match('/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/', $id_num) !== 1) {
+        Util::error('`id_num` is invalid');
+    }
 }
 
 $account = $_POST['account'];
@@ -63,7 +77,8 @@ if ($account_type != AccountType::GUEST) {
 
 // convert guest
 if ($account_service->convertGuest(
-        $account, $new_account, $new_password) === false) {
+        $account, $new_account, $new_password,
+        $name , $id_num) === false) {
     Util::error('`account` duplicated',
         ErrorCode::ACCOUNT_DUPLICATED);
 }
