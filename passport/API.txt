@@ -13,6 +13,8 @@ quick_register.php
 参数:
     account  -- 账号(6-20位字母数字组合, 必须字母开头)
     password -- 密码(40字节sha1值, 密码由客户端做一次sha1散列后再发给服务器)
+    name     -- 名字
+    id_num   -- 身份证号
 返回值: JSON
     成功: {"result":{"error_code":0,"uid":"100000001"}}
         uid          -- 用户ID
@@ -37,6 +39,8 @@ convert_guest.php
     password     -- 密码
     new_account  -- 新账号
     new_password -- 新密码
+    name     -- 名字
+    id_num   -- 身份证号
 返回值: JSON
     成功: {"result":{"error_code":0}}
     失败: error_code不为0(可能返回-1,1)
@@ -48,6 +52,8 @@ mobile_register.php
     mobile_phone -- 手机号
     password     -- 密码(40字节sha1值, 密码由客户端做一次sha1散列后再发给服务器)
     message_code -- 短信验证码(6位数字)
+    name     -- 名字
+    id_num   -- 身份证号
 返回值: JSON
     成功: {"result":{"error_code":0},"uid":"100000001"}
         uid          -- 用户ID
@@ -127,6 +133,15 @@ reset_password.php
     成功: {"result":{"error_code":0, "account":"sgzj586849294"}}
     失败: error_code不为0(可能返回-1,23,24)
 ====================================================================================
+get_account_info.php
+描述: 获取账号信息
+请求方式: POST
+参数:
+    account  -- 账号
+返回值: JSON
+    成功: {"result":{"error_code":0, "account":"sgzj586849294", "mobile_phone":"13918888888"}}
+    失败: error_code不为0(可能返回-1)
+====================================================================================
 附录1: 错误码列表
 -1: 未知错误
 0: 成功
@@ -145,6 +160,3 @@ reset_password.php
 附录2: 账号类型
 0: 普通账号
 1: 游客账号
-
-Tips:
-All of the password from the client, must be encrypt with sha1, in the end.
