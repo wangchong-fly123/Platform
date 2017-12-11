@@ -1,12 +1,7 @@
-## Description
-```
-# This is a simple and highly available account system.
-```
-
 ## Ubuntu Env Settings
 ```
 # install packages
-sudo apt-get install nginx php5-fpm php5-mysql php5-redis php5-gd
+sudo apt-get install nginx php5-fpm php5-mysql php5-redis php5-gd php5-curl
 
 # change nginx settings
 vi /etc/nginx/nginx.conf

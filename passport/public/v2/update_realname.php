@@ -15,14 +15,27 @@ if (isset($_POST['account']) === false) {
 if (isset($_POST['password']) === false) {
     Util::error('`password` is required');
 }
+if (isset($_POST['name']) === false) {
+    Util::error('`name` is required');
+}
+if (isset($_POST['id_num']) === false) {
+    Util::error('`id_num` is required');
+}
 
 $account = $_POST['account'];
 $password = $_POST['password'];
+$name = $_POST['name'];
+$id_num = $_POST['id_num'];
 
 // check account
 if (preg_match('/^[a-zA-Z]\w{5,19}$/', $account) !== 1 &&
     preg_match('/^[0-9]{11,}$/', $account) !== 1) {
     Util::error('`account` is invalid');
+}
+
+// check id_num
+if (preg_match('/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/', $id_num) !== 1) {
+    Util::error('`id_num` is invalid');
 }
 
 // check password
@@ -31,35 +44,30 @@ if (preg_match('/^[0-9a-f]{40}$/', $password) !== 1) {
 }
 
 $account_service = $app->getAccountService();
-$auth_service = $app->getAuthService();
 
-$account_info = $account_service->getAccountInfo($account, $password);
-if ($account_info === false) {
+if ($account_service->checkPassword($account, $password) === false) {
     Util::error('`account` or `password` is invalid',
                 ErrorCode::ACCOUNT_OR_PASSWORD_INVALID);
 }
-$uid = $account_info['uid'];
-$account_type = $account_info['account_type'];
-$bind_phone = 0;
-$phone_num = '';
 
-if ($account_info['mobile_phone'] !== null) {
-    $bind_phone = 1;
-    $phone_num = $account_info['mobile_phone'];
+$account_info = $account_service->getAccountInfoByAccount($account);
+if ($account_info === false) {
+    Util::error('`account` is invalid',
+                ErrorCode::UNKNOWN);
+}
+$old_name = $account_info['name'];
+if ($old_name != '') {
+    Util::error('`realname` has record',
+                ErrorCode::UNKNOWN);
 }
 
-$token = $auth_service->generateLoginToken($uid);
-if ($token === false) {
-    Util::error('generate login token failed');
+$result = $account_service->updateRealname($account, $name, $id_num);
+if ($result === false) {
+    Util::error('update realname failed');
 }
 
 Util::response(array(
     'result' => array(
         'error_code' => 0,
-        'uid' => $uid,
-        'account_type' => $account_type,
-        'token' => $token,
-        'bind_phone' => $bind_phone,
-        'phone_num' => $phone_num,
     ),
 ));

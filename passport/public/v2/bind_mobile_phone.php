@@ -27,6 +27,7 @@ $password = $_POST['password'];
 $mobile_phone = $_POST['mobile_phone'];
 $message_code = $_POST['message_code'];
 
+
 // check password
 if (preg_match('/^[0-9a-f]{40}$/', $password) !== 1) {
     Util::error('`password` is invalid');

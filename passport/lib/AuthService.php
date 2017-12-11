@@ -3,6 +3,8 @@
 final class AuthService
 {
     private $server_app_ = null;
+    
+    const CLOSE_CAPTCHA_TEXT = 1;
 
     public function __construct($server_app)
     {
@@ -47,6 +49,10 @@ final class AuthService
 
     public function checkCaptchaText($captcha_text)
     {
+        if (self::CLOSE_CAPTCHA_TEXT) {
+            return true;
+        }
+
         return $captcha_text ===
             $this->server_app_->getSession('captcha_text');
     }
@@ -58,6 +64,10 @@ final class AuthService
 
     public function checkAndClearCaptchaText($captcha_text)
     {
+        if (self::CLOSE_CAPTCHA_TEXT) {
+            return true;
+        }
+
         $session_captcha_text =
             $this->server_app_->getSession('captcha_text');
         $this->clearCaptchaText();
@@ -159,5 +169,94 @@ final class AuthService
         $redis = $this->server_app_->getRedisHandler();
 
         $redis->del("reset_password_failed_times:$uid");
+    }
+
+    public function generateRebindCode($uid)
+    {
+        $message_code = sprintf('%06ld', mt_rand(0, 999999));
+        $redis = $this->server_app_->getRedisHandler();
+
+        // expired in 5 min
+        $redis->set("rebind_step_1:$uid", $message_code, 5 * 60);
+
+        return $message_code;
+    }
+
+    public function checkRebindCode($uid, $message_code)
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $db_message_code = $redis->get("rebind_step_1:$uid");
+        if ($db_message_code === false) {
+            return false;
+        }
+
+        return $db_message_code === $message_code;
+    }
+
+    public function clearRebindCode($uid) 
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $redis->del("rebind_step_1:$uid");
+    }
+
+    public function setRebindFlag($uid)
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        // expired in 5 min
+        $redis->set("rebind_step_2:$uid", $uid, 5 * 60);
+
+        return $uid;
+    }
+
+    public function checkRebindFlag($uid)
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $db_message_code = $redis->get("rebind_step_2:$uid");
+        if ($db_message_code === false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function clearRebindFlag($uid) 
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $redis->del("rebind_step_2:$uid");
+    }
+
+    public function generateRebindConfirmCode($uid)
+    {
+        $message_code = sprintf('%06ld', mt_rand(0, 999999));
+        $redis = $this->server_app_->getRedisHandler();
+
+        // expired in 5 min
+        $redis->set("rebind_step_3:$uid", $message_code, 5 * 60);
+
+        return $message_code;
+    }
+
+    public function checkRebindConfirmCode($uid, $message_code)
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $db_message_code = $redis->get("rebind_step_3:$uid");
+        if ($db_message_code === false) {
+            return false;
+        }
+
+        return $db_message_code === $message_code;
+    }
+
+    public function clearRebindConfirmCode($uid) 
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $redis->del("rebind_step_3:$uid");
     }
 }

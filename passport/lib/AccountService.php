@@ -158,6 +158,23 @@ final class AccountService
         return true;
     }
 
+    public function updateRealname($account, $name, $id_num)
+    {
+        $dbh = $this->server_app_->getDBHandler();
+        $sth = $dbh->prepare(
+            'update `tbl_account` set `name` = :name, `id_num` = :id_num '.
+            'where `account` = :account');
+        $sth->bindValue(':account', $account, PDO::PARAM_STR);
+        $sth->bindValue(':name', $name, PDO::PARAM_STR);
+        $sth->bindValue(':id_num', $id_num, PDO::PARAM_STR);
+
+        if (@$sth->execute() === false) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function bindMobilePhone($account, $mobile_phone)
     {
         $dbh = $this->server_app_->getDBHandler();
@@ -216,7 +233,7 @@ final class AccountService
         $dbh = $this->server_app_->getDBHandler();
         $sth = $dbh->prepare(
             'select `uid`, `account`, `password`, `account_type`, '.
-            '`register_type`, `mobile_phone`, `email`, `create_time` '.
+            '`register_type`, `mobile_phone`, `email`, `create_time`, `name` '.
             'from `tbl_account` where `account` = :account');
         $sth->bindValue(':account', $account, PDO::PARAM_STR);
 
