@@ -6,7 +6,8 @@ a platform for game server
  
  About messgae
  
- when you download the message folder。
+ when you download the message folder
+ 
  1.unzip aliyun.zip at the current path
  
  2.to the settings folder, and run the ./copy_conf.sh
