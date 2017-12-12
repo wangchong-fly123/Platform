@@ -12,18 +12,18 @@ then
 fi
 
 case $1 in 
-    0)
-    ;;
-    xy_android)
-    table_name=tbl_zoneinfo_xy_android;;  
-    xy_ios)
-    table_name=tbl_zoneinfo_xy_ios;;  
-    xy_escape)
-    table_name=tbl_zoneinfo_xy_escape;;  
-    papa_android)
-    table_name=tbl_zoneinfo_papa_android;;  
+    common_android)
+    table_name=tbl_zoneinfo_common_android;;  
+    appstore_ios)
+    table_name=tbl_zoneinfo_appstore_ios;;  
+    escape_ios)
+    table_name=tbl_zoneinfo_escape_ios;;  
+    android_papa)
+    table_name=tbl_zoneinfo_android_papa;;  
+    test)
+    table_name=tbl_zoneinfo_test;;  
     *)
-    echo "$0 [0 | xy_android | xy_ios | xy_escape | papa_android]" 
+    echo "$0 [common_android | appstore_ios | escape_ios | android_papa |test ]" 
     exit 1;;
 esac
 

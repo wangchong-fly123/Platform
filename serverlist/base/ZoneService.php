@@ -1,5 +1,7 @@
 <?php
 
+require_once Config::getSettingsDir().'SlaveServerConfig.php';
+
 final class ZoneService
 {
     private $dbh_ = null;
@@ -25,7 +27,7 @@ final class ZoneService
     public function init()
     {
         if (ServerConfig::init() === false) {
-            $this->error("login", -1);
+            $this->error("zone", -1);
         }
     }
 
@@ -56,18 +58,173 @@ final class ZoneService
             return $info;
         }
 
-        $sth = $dbh->prepare('select `ZONE`,`NAME`,`IP`,`PORT`,`WEBPORT`,`STATUS` from `'.$table_name.'`'.
-                ' where `GAME`= :game and `TYPE`= :type');
+        $string_time = date("Y-m-d H:i:s", time());
+        $string_time_empty = '';
+        $sth = $dbh->prepare(
+                'select `ZONE`,`NAME`,`IP`,'.
+                '`PORT`,`WEBPORT`,`STATUS`,'.
+                '`TIPS`,`DISABLE_GIFTCODE`,'.
+                '`START_TIME`,`END_TIME` from `'.$table_name.'`'.
+                ' where `GAME`= :game and `TYPE`= :type'.
+                ' and (`START_TIME`<:string_time or `START_TIME`= :string_time_empty)');
         $sth->bindParam(":game", $game);
         $sth->bindParam(":type", $type);
+        $sth->bindParam(":string_time", $string_time);
+        $sth->bindParam(":string_time_empty", $string_time_empty);
         if (@$sth->execute() === false) {
         } else {
-            while($res = $sth->fetch(PDO::FETCH_ASSOC)){
+            while($res = $sth->fetch(PDO::FETCH_ASSOC)) {
+                $show_new_tips = $res['TIPS'];
+                if ($show_new_tips == 0) {
+                    if ($res['START_TIME'] != '' && $res['END_TIME'] != '') {
+                        if (time() >= strtotime($res['START_TIME']) &&
+                            time() <= strtotime($res['END_TIME'])) {
+                            $show_new_tips = 1;
+                        }
+                    }
+                }
+
                 $info[] =  $res['ZONE'].",". $res['NAME'].",".
-		    $res['IP'].",". $res['PORT'].",".
-		    $res['WEBPORT'].",".$res['STATUS'];
+                    $res['IP'].",". $res['PORT'].",".
+                    $res['WEBPORT'].",".$res['STATUS'].",".
+                    $show_new_tips.",".$res['DISABLE_GIFTCODE'].",".
+                    $res['START_TIME'].",".$res['END_TIME'];
             }
         }
         return $info;
+    }
+
+    public function getZoneWebInfo($zone_id, $platform)
+    {
+        $info = "";
+        $dbh = $this->getDBHandler();
+        $table_name = Common::getZoneInfoTableName($platform);
+        if ($table_name == "") {
+            return $info;
+        }
+        $sth = $dbh->prepare('select `IP`,`WEBPORT` from `'.$table_name.'`'.
+                ' where `ZONE`= :zone');
+        $sth->bindParam(":zone", $zone_id);
+        if (@$sth->execute() === false) {
+        } else {
+            while($res = $sth->fetch(PDO::FETCH_ASSOC)) {
+                $info = 'http://'.$res['IP'].':'.$res['WEBPORT'].'/';
+                break;
+            }
+        }
+        return $info;
+    }
+
+    public function updateZoneStatusInfo($zone_id, $platform, $status)
+    {
+        $info = "";
+        $dbh = $this->getDBHandler();
+        $table_name = Common::getZoneInfoTableNameById($platform);
+        if ($table_name == "") {
+            return $info;
+        }
+        $sth = $dbh->prepare('update `'.$table_name.'` set `STATUS`=:status'.
+                ' where `ZONE`= :zone');
+        $sth->bindParam(":status", $status);
+        $sth->bindParam(":zone", $zone_id);
+        if (@$sth->execute() === false) {
+            $this->error("zone", -1);
+        }
+
+        $this->updateSameZoneStatusInfo($zone_id, $platform, $status);
+
+        return $info;
+    }
+
+    public function updateSameZoneStatusInfo($zone_id, $platform, $status)
+    {
+        $info = "";
+        $dbh = $this->getDBHandler();
+        $table_name = Common::getZoneInfoTableNameById($platform);
+        if ($table_name == "") {
+            return $info;
+        }
+
+        $dest_ip = '';
+        $dest_port = '';
+        $sth = $dbh->prepare('select `IP`,`PORT` from `'.$table_name.'`'.
+                ' where `ZONE`= :zone');
+        $sth->bindParam(":zone", $zone_id);
+        if (@$sth->execute() === false) {
+            $this->error("zone", -1);
+        } else {
+            while($res = $sth->fetch(PDO::FETCH_ASSOC)) {
+                $dest_ip = $res['IP'];
+                $dest_port = $res['PORT'];
+                break;
+            }
+        }
+
+        $sth = $dbh->prepare('update `'.$table_name.'` set `STATUS`=:status'.
+                ' where `IP`= :dest_ip and `PORT`= :dest_port');
+        $sth->bindParam(":status", $status);
+        $sth->bindParam(":dest_ip", $dest_ip);
+        $sth->bindParam(":dest_port", $dest_port);
+        if (@$sth->execute() === false) {
+            $this->error("zone", -1);
+        }
+
+        return $info;
+    }
+
+    public function checkRequestValid($server_params, $request_params)
+    {
+        return Common::checkRequestValid(
+            SlaveServerConfig::$slave_server_key,
+            $server_params, $request_params);
+    }
+
+    public function getBriefZoneInfo($game, $type, $platform)
+    {   
+        $dbh = $this->getDBHandler();
+        $info = array();
+        $table_name = Common::getZoneInfoTableName($platform);
+        if ($table_name == "") {
+            return $info;
+        }
+
+        $string_time = date("Y-m-d H:i:s", time());
+        $string_time_empty = '';
+        $sth = $dbh->prepare(
+                'select `ZONE`,`NAME`,`IP`,'.
+                '`PORT`,`WEBPORT`,`STATUS`,'.
+                '`TIPS`,`DISABLE_GIFTCODE`,'.
+                '`START_TIME`,`END_TIME` from `'.$table_name.'`'.
+                ' where `GAME`= :game and `TYPE`= :type'.
+                ' and (`START_TIME`<:string_time or `START_TIME`= :string_time_empty)');
+        $sth->bindParam(":game", $game);
+        $sth->bindParam(":type", $type);
+        $sth->bindParam(":string_time", $string_time);
+        $sth->bindParam(":string_time_empty", $string_time_empty);
+        if (@$sth->execute() === false) {
+        } else {
+            while($res = $sth->fetch(PDO::FETCH_ASSOC)) {
+                $show_new_tips = $res['TIPS'];
+                if ($show_new_tips == 0) {
+                    if ($res['START_TIME'] != '' && $res['END_TIME'] != '') {
+                        if (time() >= strtotime($res['START_TIME']) &&
+                            time() <= strtotime($res['END_TIME'])) {
+                            $show_new_tips = 1;
+                        }
+                    }
+                }
+
+                $info_desc = array(
+                    'zone' => $res['ZONE'],
+                    'name' => $res['NAME'],
+                    'status' => $res['STATUS'],
+                    );
+                array_push($info, $info_desc);
+            }
+        }
+        $ret_array = array(
+            "zoneinfo" => $info,
+            );
+        return json_encode($ret_array);
     }
 }

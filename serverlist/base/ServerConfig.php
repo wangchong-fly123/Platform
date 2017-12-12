@@ -9,6 +9,9 @@ final class ServerConfig
     public static $db_password;
     public static $cache_switch;
     public static $cache_timeout;
+    public static $redis_host;
+    public static $redis_port;
+    public static $redis_password;
 
     public static function init()
     {
@@ -27,6 +30,9 @@ final class ServerConfig
         self::$db_password = $array["dbPwd"];
         self::$cache_switch = $array["cacheSwitch"];
         self::$cache_timeout = $array["cacheTimeout"];
+        self::$redis_host = $array["redisHost"];
+        self::$redis_port = $array["redisPort"];
+        self::$redis_password = $array["redisPwd"];
         return true;
     }
 }
