@@ -85,7 +85,7 @@ final class CodeService
         return false;
     }
 
-    public function generateOneCode($length, $channel, $gift_id, $batch_id, $code_type)
+    public function generateOneCode($length, $channel, $gift_id, $batch_id, $code_type,$start_time='',$end_time='')
     {
         $dbh = $this->getDBHandler();
 
@@ -95,16 +95,19 @@ final class CodeService
         }
         $table_name = $this->getCodeTableName($code_type);
         $sth = $dbh->prepare(
-            'insert into `'.$table_name.'`'.
-            ' (`code`,`channel`,`used`,`gift_id`,`batch_id`)'.
-            ' values(:code, :channel, :used, :gift_id, :batch_id)'.
+            'insert ignore into `'.$table_name.'`'.
+            ' (`code`,`channel`,`used`,`gift_id`,`batch_id`,`start_time`,`end_time`)'.
+            ' values(:code, :channel, :used, :gift_id, :batch_id ,:start_time, :end_time)'.
             '');
         $used = 0;
+
         $sth->bindValue(':code', $code, PDO::PARAM_STR);
         $sth->bindValue(':channel', $channel, PDO::PARAM_STR);
         $sth->bindValue(':used', $used, PDO::PARAM_INT);
         $sth->bindValue(':gift_id', $gift_id, PDO::PARAM_INT);
         $sth->bindValue(':batch_id', $batch_id, PDO::PARAM_INT);
+        $sth->bindValue(':start_time', $start_time, PDO::PARAM_STR);
+        $sth->bindValue(':end_time', $end_time, PDO::PARAM_STR);
         if ($sth->execute() === false) {
             return -1;
         } else {
@@ -112,21 +115,21 @@ final class CodeService
         }
     }
 
-    public function generateCodeSql($codes=array(), $channel, $gift_id, $batch_id, $code_type)
+    public function generateCodeSql($codes=array(), $channel, $gift_id, $batch_id, $code_type,$start_time='',$end_time='')
     {
         $sql_file = Config::getSqlCodeDir().
             'giftcode_'.$channel.'_'.$gift_id.'_'.$batch_id.'.sql';
         $used = 0;
         $table_name = $this->getCodeTableName($code_type);
-        $sql_string = " insert into `".$table_name."`"."\n".
-            " (`code`,`channel`,`used`,`gift_id`,`batch_id`)".
+        $sql_string = " insert ignore into `".$table_name."`"."\n".
+            " (`code`,`channel`,`used`,`gift_id`,`batch_id`,`start_time`,`end_time`)".
             " values"."\n";
         $index = 1;
         foreach ($codes as $code) {
             if ($index == count($codes)) {
-                $sql_string .= " ('$code', '$channel', $used, $gift_id, $batch_id);"."\n";
+                $sql_string .= " ('$code', '$channel', $used, $gift_id, $batch_id, '$start_time', '$end_time');"."\n";
             } else {
-                $sql_string .= " ('$code', '$channel', $used, $gift_id, $batch_id),"."\n";
+                $sql_string .= " ('$code', '$channel', $used, $gift_id, $batch_id, '$start_time', '$end_time'),"."\n";
             }
 
             $this->generateTxtCode($code, $channel, $gift_id, $batch_id);
@@ -140,7 +143,7 @@ final class CodeService
     public function generateTxtCode($code, $channel, $gift_id, $batch_id)
     {
         $txt_file = Config::getTxtOutPutDir().
-            'giftcode_'.$channel.'_'.$gift_id.'_'.$batch_id.'.txt';
+            'giftcode_'.$batch_id.'_'.$channel.'_'.$gift_id.'_'.$batch_id.'.txt';
         $code_string = $code;
         file_put_contents($txt_file, $code_string."\n", FILE_APPEND);
     }

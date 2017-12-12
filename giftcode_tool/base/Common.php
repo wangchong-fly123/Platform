@@ -20,7 +20,7 @@ final class Common
     public static function createToken($length)
     {
         $bytes = openssl_random_pseudo_bytes($length * 2);
-        $token = substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $length);
+        $token = substr(str_replace(array('/', '+', '='), '', base64_encode($bytes)), 0, $length);
         return $token;
     }
 

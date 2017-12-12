@@ -1,49 +1,154 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<script src = "http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 <title>礼包码生成页面</title>
 <link href="../view/layout_LoginAndRegister.css" rel="stylesheet" type="text/css" />
+<link href="../view/ace.css" rel="stylesheet" type="text/css" />
+<link href="../view/font-awesome.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="../view/daterangepicker.css" />
+<script type="text/javascript" src="../view/moment.js"></script>
+<script type="text/javascript" src="../view/daterangepicker.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#config-text').keyup(function() {
+          eval($(this).val());
+        });
+        
+        $('.configurator input, .configurator select').change(function() {
+          updateConfig();
+        });
+
+        $('.demo i').click(function() {
+          $(this).parent().find('input').click();
+        });
+
+        $('#startDate').daterangepicker({
+          singleDatePicker: true,
+          startDate: moment().subtract(6, 'days')
+        });
+
+        $('#endDate').daterangepicker({
+          singleDatePicker: true,
+          startDate: moment()
+        });
+
+        updateConfig();
+
+        function updateConfig() {
+            var options = {};
+
+            options.singleDatePicker = true;
+            options.locale = {
+              direction: $('#rtl').is(':checked') ? 'rtl' : 'ltr',
+              format: 'MM/DD/YYYY HH:mm',
+              separator: ' - ',
+              applyLabel: 'Apply',
+              cancelLabel: 'Cancel',
+              fromLabel: 'From',
+              toLabel: 'To',
+              customRangeLabel: 'Custom',
+              daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+              monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              firstDay: 1
+            };
+  
+            options.autoApply = false;
+
+            options.startDate = moment();
+            options.endDate = moment().subtract(1, 'days');
+
+            options.opens = 'right';
+
+            options.drops = 'down';
+
+            options.buttonClasses = 'btn btn-sm';
+
+            options.applyClass = 'btn-success';
+
+            options.cancelClass = 'btn-default';
 
 
+          $('.config-demo').daterangepicker(options, function(start, end, label) { console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')'); });
+          
+        }
+
+      });
+</script>
+<style>
+	table td{
+		font-size:14px; margin:0;
+        color: #1B9AF7;
+	    font-weight: 300;
+	    font-family: Helvetica Neue Light;
+	    font-size: 15px;
+	}
+</style>
 </head>
 <body>
 <div id = "container">
-<div id = "header">
-</div>
-<div id="mainContent">
-<h2>礼包码</h2>
-<div id="circle">
-	<form action="generate_giftcode.php" method="get">
-	<table width="55%" align="center">
-	    <tr><td>长度:</td><td><input type="text" name="length" size="30" maxlength="16" value="" style="width:200px;height:30px"></td></tr>
-	    <tr><td>数量:</td><td><input type="text" name="count" size="30" maxlength="16" value="" style="width:200px;height:30px"></td></tr>
-	    <tr><td>渠道:</td><td><input type="text" name="channel" size="30" maxlength="16" value="" style="width:200px;height:30px"></td></tr>
-		<tr><td>礼包ID:</td><td><input type="text" name="gift_id" size="30" maxlength="16" value="" style="width:200px;height:30px"></td></tr>
-		<tr><td>是否一码多用:</td><td>
-                            <select name="code_type">
+	<div id = "header"></div>
+	
+	<div id="mainContent" style=" ">
+		<h2 class="center">礼包码</h2>
+		<div id="circle">
+			<form action="generate_giftcode.php" method="get">
+				<table width="55%" align="center">
+				    <tr><td>长度:</td><td><input type="text" name="length" size="30" maxlength="16" value="" style="width:180px;height:25px"></td></tr>
+				    <tr><td>数量:</td><td><input type="text" name="count" size="30" maxlength="16" value="" style="width:180px;height:25px"></td></tr>
+				    <tr><td>渠道:</td><td><input type="text" name="channel" size="30" maxlength="16" value="" style="width:180px;height:25px"></td></tr>
+					<tr><td>礼包ID:</td><td><input type="text" name="gift_id" size="30" maxlength="16" value="" style="width:180px;height:25px"></td></tr>
 
-                                       <option value="1">是</option>
 
-                                       <option value="0" selected = "selected">否</option>
-                            </select>
-        </td></tr>
-	    <br>
-	    <tr>
-	    <td></td><td><input type="submit" value="生成礼包码" style="width:130px;height:40px;"/>
-                     <input type="reset" value="清空" style="width:60px;height:40px;"/></td>
-	    </tr>
-	</table>
-	</form>
-    <h2><a href="../output/">Download GiftCode</a><h2>
-</div>
-</div>
+					<tr><td>开始时间:</td><td><input type="text" name='start' id="config-demo1" class="form-control config-demo" style="width: 180px;">
+			                <i class="glyphicon glyphicon-calendar fa fa-calendar" style="margin-left: -30px;"></i></td></tr>
+					<tr><td>结束时间:</td><td><input type="text" name='end' id="config-demo2" class="form-control config-demo" style="width: 180px;">
+			        <i class="glyphicon glyphicon-calendar fa fa-calendar" style="margin-left: -30px;"></i></td></tr>
+					
 
+
+					<tr><td>是否一码多用:</td><td>
+			                            <select name="code_type" style="font-size: 17px;font-weight: 300;color:#1B9AF7;width: 100px;padding:3px 4px;height: 30px;margin-top: 5px">
+
+			                                       <option value="1">是</option>
+
+			                                       <option value="0" selected = "selected">否</option>
+			                            </select>
+			        </td></tr>
+				    <br>
+				    <tr>
+				    <td></td><td style="display: block;margin-top:8px"><input type="submit" class="btn btn-info" value="生成礼包码" style="width:110px;height:40px;"/>
+			                     <input type="reset" class="btn" value="清空" style="width:70px;height:40px;margin-left: 6px"/></td>
+				    </tr>
+				</table>
+			</form>
+		    <h2><a href="../output/"><button class="btn btn-white btn-warning" style="width: 90px;height: 40px;">Download</button></a><h2>
+		</div>
+	</div>
 </div>
-<div id="footer">
-<center>Today is a good day!</center>
+<div id='cc' style="border-width: 0px;margin-top: -40px;width: 100%;background: #d4e1f2;"></div>
+<div style="text-align: center;color: white;">
+    <span class="bigger-120">
+        <small>Copyright &copy; 2017 欢动科技 All Rights Reserved.</small>
+    </span>
 </div>
-</div>
+<script>
+	 window.onload=function(){
+           $(".daterangepicker").hide();
+        }
+        $(document).ready(function(){
+        	var tlength = document.body.scrollHeight ;
+        	if (tlength>660) {
+        		var showlength = (tlength-660)*0.6+'px';
+        		$("#cc").css('height',showlength);
+
+        	}
+        })
+
+</script>
 
 </body>
 </html>
