@@ -175,6 +175,22 @@ final class AccountService
         return true;
     }
 
+    public function updateLastLoginTime($account)
+    {
+        $dbh = $this->server_app_->getDBHandler();
+        $sth = $dbh->prepare(
+            'update `tbl_account` set `last_login_time` = :last_login_time '.
+            'where `account` = :account');
+        $sth->bindValue(':account', $account, PDO::PARAM_STR);
+        $sth->bindValue(':last_login_time', time(), PDO::PARAM_INT);
+
+        if (@$sth->execute() === false) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function bindMobilePhone($account, $mobile_phone)
     {
         $dbh = $this->server_app_->getDBHandler();

@@ -53,6 +53,8 @@ if ($token === false) {
     Util::error('generate login token failed');
 }
 
+$account_service->updateLastLoginTime($account);
+
 Util::response(array(
     'result' => array(
         'error_code' => 0,
