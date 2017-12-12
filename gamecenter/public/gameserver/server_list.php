@@ -15,7 +15,7 @@ if (isset($_GET["game"]) === false
         || isset($_POST["type"]) === false
         || isset($_POST["platform"]) === false) {
 
-        $service->error("zoneinfo", 1);
+        $service->error("required parameter missing", -1);
     } else {
         $game = $_POST["game"];
         $type = $_POST["type"];
@@ -30,27 +30,13 @@ if (isset($_GET["game"]) === false
 
 if(!is_numeric($game) || !is_numeric($type))
 {
-    $service->error("zoneinfo", 2);
+    $service->error("parameter is invalid", 1);
 }
 $service->init();
 
-$cache_service = new CacheService();
-$cache_service->init();
-
-$cache_info = $cache_service->getCache($platform);
-$array = array();
-
-if ($cache_info == false) {
-    $array = $service->getZoneInfo($game, $type, $platform);
-    if (count($array)) {
-        $cache_service->writeCache($platform, serialize($array));
-    }
-} else {
-    $array = unserialize($cache_info);
-}
-
+$array = $service->getBriefZoneInfo($game, $type, $platform);
 if (count($array)) {
-    $service->response(array("zoneinfo" => $array));
+    echo $array;
 } else {
-    $service->error("zoneinfo", 3);
+    $service->error("platform is invalid or serverlist is empty", 2);
 }

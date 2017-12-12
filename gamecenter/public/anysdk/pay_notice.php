@@ -13,7 +13,7 @@ if (isset($_POST['server_id']) === false ||
     $service->error('pay', -1);
 }
 
-$remote_ip = $_SERVER['REMOTE_ADDR'];
+$remote_ip = Common::getClientIp();
 
 if ($service->checkAnySDKSever($remote_ip) === false) {
     $service->error('pay', 1);

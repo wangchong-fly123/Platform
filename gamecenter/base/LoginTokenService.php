@@ -39,11 +39,17 @@ final class LoginTokenService
 
         $redis_host = ServerConfig::$redis_host;
         $redis_port = ServerConfig::$redis_port;
+        $redis_password = ServerConfig::$redis_password;
 
         $this->redis_ = new Redis();
         $result = $this->redis_->connect($redis_host, $redis_port);
         if ($result === false) {
             return null;
+        }
+        if (strlen($redis_password) > 0) {
+            if ($this->redis_->auth($redis_password) === false) {
+                return null;
+            }
         }
 
         return $this->redis_;
@@ -68,10 +74,17 @@ final class LoginTokenService
         return false;
     }
 
-    public function accessToken($params=array())
+    public function accessToken($params=array(), $channel)
     {
-        $output = Common::httpRequest(
-                AnySDKPlatformConfig::$check_login_url, $params, 'post');
+        $url = AnySDKPlatformConfig::$check_login_url;
+        if (isset(AnySDKPlatformConfig::$login_url_port[$channel])) {
+            $url .= ':'.AnySDKPlatformConfig::$login_url_port[$channel].
+                AnySDKPlatformConfig::$login_url_path;
+        } else {
+            $url .= ':'.AnySDKPlatformConfig::$login_url_default_port.
+                AnySDKPlatformConfig::$login_url_path;
+        }
+        $output = Common::httpRequest($url, $params, 'post');
         $ret = json_decode($output, true);
         if ($ret === null) {
             error_log($output);
@@ -83,8 +96,7 @@ final class LoginTokenService
         if (isset($ret['status']) === false ||
             $ret['status'] != 'ok' ||
             isset($ret['common']) === false ||
-            isset($ret['common']['uid']) === false ||
-            $ret['common']['uid'] == 0) {
+            isset($ret['common']['uid']) === false) {
             error_log("any_sdk_platform: check_login failed: $output");
 
             echo json_encode($ret);

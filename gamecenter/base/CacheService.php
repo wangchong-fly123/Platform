@@ -29,27 +29,53 @@ final class CacheService
         }
     }
 
-    public function getCacheInfo($file)
-    {
-        if (ServerConfig::$cache_switch == 0) {
+    public function getRedis()
+    {  
+        if ($this->redis_ != null) {
+            return $this->redis_;
+        } 
+
+        $redis_host = ServerConfig::$redis_host;
+        $redis_port = ServerConfig::$redis_port;
+        $redis_password = ServerConfig::$redis_password;
+
+        $this->redis_ = new Redis();
+        $result = $this->redis_->connect($redis_host, $redis_port);
+        if ($result === false) {
             return null;
         }
-        $expire = ServerConfig::$cache_timeout;     //time out
-        if (file_exists($file) && time() < filemtime($file) + $expire) {
-            return unserialize(file_get_contents($file));
-        } else {
-            return null;
+        if (strlen($redis_password) > 0) {
+            if ($this->redis_->auth($redis_password) === false) {
+                return null;
+            }
         }
+
+        return $this->redis_;
     }
 
-    public function setCacheInfo($file, $content)
-    {
+    public function writeCache($key, $value, $timeout = 60)
+    {   
         if (ServerConfig::$cache_switch == 0) {
-            return;
+            return false;
         }
-        $output = serialize($content);
-        $fp = fopen($file, "w");
-        fwrite($fp, $output);
-        fclose($fp);
+
+        $redis = $this->getRedis();
+        $result = $redis->set($key, $value);
+        $redis->expire($uid, $timeout);
+        return $result;
     }
+
+    public function getCache($key)
+    {   
+        if (ServerConfig::$cache_switch == 0) {
+            return false;
+        }
+
+        $redis = $this->getRedis();
+        if ($redis->exists($key) === true) {
+            return $redis->get($uid);
+        }
+        return false;
+    }
+
 }

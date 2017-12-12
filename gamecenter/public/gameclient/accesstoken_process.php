@@ -15,4 +15,4 @@ if (!isset($params['channel']) ||
     $service->error("accesstoken", 1);
 }
 
-$service->accessToken($params);
+$service->accessToken($params, $params['channel']);

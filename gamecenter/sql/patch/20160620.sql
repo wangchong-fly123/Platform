@@ -1,0 +1,10 @@
+alter table tbl_zoneinfo                modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';
+alter table tbl_zoneinfo_banshu         modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';
+alter table tbl_zoneinfo_common_android modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';
+alter table tbl_zoneinfo_appstore_ios   modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';
+alter table tbl_zoneinfo_escape_ios     modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';
+alter table tbl_zoneinfo_android_papa   modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';
+alter table tbl_zoneinfo_test           modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';
+alter table tbl_zoneinfo_test_2         modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';
+alter table tbl_zoneinfo_test_3         modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';
+alter table tbl_zoneinfo_test_4         modify `IP` varchar(48) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '0.0.0.0';

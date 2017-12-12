@@ -3,7 +3,7 @@
 bin_dir=`dirname $0`
 proj_home=$bin_dir/..
 platform_config_file=$proj_home/settings/config.ini
-db_sql_file2=$proj_home/sql/zoneinfodb.sql
+db_sql_file2=$proj_home/sql/patch/$1
 
 if [ ! -f $platform_config_file ]
 then
@@ -25,9 +25,6 @@ db_name=`grep dbName $platform_config_file | awk -F'=' '{print $2}'`
 echo "
 
 set names utf8;
-DROP DATABASE IF EXISTS $db_name;
-CREATE DATABASE $db_name CHARACTER SET utf8 COLLATE utf8_bin;
-
 use $db_name;
 source $db_sql_file2;
 " | mysql -h$db_host -P$db_port -u$db_user --password=$db_password

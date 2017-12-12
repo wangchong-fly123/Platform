@@ -11,6 +11,7 @@ final class ServerConfig
     public static $cache_timeout;
     public static $redis_host;
     public static $redis_port;
+    public static $redis_password;
 
     public static function init()
     {
@@ -31,6 +32,7 @@ final class ServerConfig
         self::$cache_timeout = $array["cacheTimeout"];
         self::$redis_host = $array["redisHost"];
         self::$redis_port = $array["redisPort"];
+        self::$redis_password = $array["redisPwd"];
         return true;
     }
 }
