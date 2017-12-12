@@ -11,6 +11,8 @@ if ($service->checkRequestValid($_SERVER, $_GET) === false) {
         ));
 }
 
+$player_id = '';
+
 if (isset($_GET['giftcode']) === false ||
     isset($_GET['channel']) === false) {
     $service->response(array(
@@ -18,11 +20,15 @@ if (isset($_GET['giftcode']) === false ||
         ));
 }
 
+if (isset($_GET['player_id'])) {
+    $player_id = $_GET['player_id'];
+}
+
 $giftcode = $_GET['giftcode'];
 $channel = $_GET['channel'];
 
 $giftcode = strtoupper($giftcode);
-$result = $service->useCode($giftcode, $channel);
+$result = $service->useCode($giftcode, $channel, $player_id);
 if ($result == 0) {
     $service->response(array(
         'status' => true,

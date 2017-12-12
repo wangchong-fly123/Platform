@@ -20,21 +20,21 @@ final class Common
     public static function createToken($length)
     {
         $bytes = openssl_random_pseudo_bytes($length * 2);
-        $token = substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $length);
+        $token = substr(str_replace(array('/', '+', '='), '', base64_encode($bytes)), 0, $length);
         return $token;
     }
 
     public static function createNumericCode($length)
     {
         $password = '';
-        for ($i = 0; $i < $length; $i++) 
+        for ($i = 0; $i < $length; $i++)
         {
             $password .= rand(0, 9);
         }
 
         return $password;
     }
-    
+
     public static function createSign($secret_key, $url, $params=array())
     {
         $query_string = '';
@@ -54,13 +54,13 @@ final class Common
     }
 
     public static function httpRequest($url, $params=array(), $method='get')
-    {   
-        $query_string = ''; 
+    {
+        $query_string = '';
         foreach ($params as $key => $value) {
             $query_string .=
                 rawurlencode($key).'='.
                 rawurlencode($value).'&';
-        }   
+        }
         substr($query_string, 0, -1);
 
         $ch = curl_init();
@@ -72,20 +72,20 @@ final class Common
                 curl_setopt($ch, CURLOPT_URL, $url.'?'.$query_string);
             } else {
                 curl_setopt($ch, CURLOPT_URL, $url);
-            }   
+            }
         } else {
             // post method
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $query_string);
-        }   
+        }
 
         $output = curl_exec($ch);
         if ($output === false) {
             error_log(curl_error($ch));
             curl_close($ch);
             return false;
-        }   
+        }
         curl_close($ch);
 
         return $output;

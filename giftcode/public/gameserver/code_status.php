@@ -32,5 +32,6 @@ if ($result > 0) {
 } else {
     $service->response(array(
         'status' => false,
+        'error' => $result,
         ));
 }
