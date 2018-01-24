@@ -56,7 +56,7 @@ if ($new_account_info != false) {
 $uid = $account_info['uid'];
 if ($auth_service->checkRebindFlag($uid) === false) {
     Util::error('`old_mobile_phone` is invalid',
-                ErrorCode::CHANGE_PHONE_TIMEOUT);
+                ErrorCode::NOT_BIND_MOBILE_PHONE);
 }
 
 // send mobile message code
