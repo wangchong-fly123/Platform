@@ -148,6 +148,7 @@ final class Util
         $ip_list = array(
             '180.168.36.210',
             '112.65.46.8',
+            '119.29.2.84',
             );
         return in_array($ip, $ip_list);
     }

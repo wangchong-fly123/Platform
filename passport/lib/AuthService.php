@@ -259,4 +259,58 @@ final class AuthService
 
         $redis->del("rebind_step_3:$uid");
     }
+
+    public function generateMessageLoginCode($mobile_phone)
+    {
+        $message_code = sprintf('%04ld', mt_rand(0, 9999));
+        $redis = $this->server_app_->getRedisHandler();
+
+        // expired in 5 min
+        $redis->set("message_login:$mobile_phone", $message_code, 5 * 60);
+
+        return $message_code;
+    }
+
+    public function checkMessageLoginCode($mobile_phone, $message_code)
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $db_message_code = $redis->get("message_login:$mobile_phone");
+        if ($db_message_code === false) {
+            return false;
+        }
+
+        return $db_message_code === $message_code;
+    }
+
+    public function clearMessageLoginCode($mobile_phone) 
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $redis->del("message_login:$mobile_phone");
+    }
+
+    public function addFailedMessageLoginCodeTimes($mobile_phone)
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $failed_times = $redis->get("message_login_failed_times:$mobile_phone");
+        if ($failed_times === false) {
+            $redis->set("message_login_failed_times:$mobile_phone", 1, 10 * 60);
+        } else {
+            if ($failed_times >= 10) {
+                $this->clearMessageLoginCode($mobile_phone);
+                $this->clearFailedMessageLoginCodeTimes($mobile_phone);
+            } else {
+                $redis->set("message_login_failed_times:$mobile_phone", 1+$failed_times, 10 * 60);
+            }
+        }
+    }
+
+    public function clearFailedMessageLoginCodeTimes($mobile_phone)
+    {
+        $redis = $this->server_app_->getRedisHandler();
+
+        $redis->del("message_login_failed_times:$mobile_phone");
+    }
 }

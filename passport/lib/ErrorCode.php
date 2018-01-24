@@ -19,6 +19,4 @@ final class ErrorCode
     const ALREADY_BIND_EMAIL          = 32; // 已绑定邮箱
     // 图形验证码
     const CAPTCHA_TEXT_INVALID        = 41; // 图形验证码无效
-    // 换绑手机
-    const CHANGE_PHONE_TIMEOUT        = 42; // 换绑手机操作超时
 }
