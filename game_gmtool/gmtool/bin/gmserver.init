@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./gmserver-phpfpm.init $*
+./gmserver-nginx.init $*
