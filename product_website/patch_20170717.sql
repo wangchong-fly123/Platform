@@ -1,0 +1,1 @@
+ALTER TABLE `order` ADD COLUMN `platform` varchar(64);

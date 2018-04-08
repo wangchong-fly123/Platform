@@ -1,0 +1,80 @@
+hr {
+    height: 1px;
+    width: 60px;
+    text-align: center;
+    position: relative;
+    background: #D2527F;
+    border: 0;
+}
+
+.anchor {
+   position: relative;
+   border-top: 87px solid transparent;
+   margin-top: -87px;
+   -webkit-background-clip: padding-box;
+   -moz-background-clip: padding;
+   background-clip: padding-box;
+}
+
+.section {
+   margin-top: 87px;
+}
+
+.color-quote {
+    color: #d2527f;
+}
+
+#menu {
+    background-color: #fff;
+    border-style: none;
+    padding: 20px;
+    transition: all 0.8s;
+}
+
+#menu .navbar-text {
+    color: #000;
+    font-size: 30px;
+    font-family: "幼圆";
+    padding: 0;
+    margin: 0;
+}
+
+#menu .navbar-nav > li > a {
+    color: #000;
+    font-size: 22px;
+    font-family: "幼圆";
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#menu .navbar-nav > li > a:hover {
+    color: #d2527f;
+}
+
+#logo {
+    background-image: url('../img/logo.jpg');
+    width: 164px;
+    height: 83px;
+    position: relative;
+    top: -35px;
+}
+
+#company-intro-section {
+}
+
+#game-intro-section {
+}
+
+#join-us-section {
+    height: 600px;
+}
+
+#contact-us-section {
+    height: 800px;
+}
+
+#footer {
+    padding: 30px 0 25px 0;
+    width: 100%;
+}
+

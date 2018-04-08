@@ -1,0 +1,15 @@
+<?php
+
+return [
+	'appkey'=>'6E51063F-241E-C550-1667-62CABDFE1B01',
+	'appsecret'=>'92ad5235d73d3c18164a2f26ace84fbb',
+	'create_order_secret'=>'wTd9Ztd8xK3NBiFI$HeS%3LIavmp7CUn',//创建订单时候的secret
+	'pay_result_secret'=>'FdIdzDCVgZoIZmgVnwMzYR4bcDKsLRbq',//支付回调时候的secret
+	'platform_list'=>array(//平台配置
+		'test_web_pay'=>'测试平台',
+		// 'android_sgzj_web'=>'安卓',
+		// 'ios_sgzj_web'=>'苹果',
+	),
+	'notify_url'=>"http://localhost:8092/site/notify",
+	'redirect_url'=>"http://localhost:8092/mobile/recharge"
+];

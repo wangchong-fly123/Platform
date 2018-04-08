@@ -1,0 +1,60 @@
+2017-07-13 17:37:47  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}
+2017-07-13 17:38:03  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}
+2017-07-13 17:39:55  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}
+2017-07-13 17:40:54  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}
+2017-07-13 17:41:24  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}
+2017-07-13 17:41:24  response: '<form id=\'alipaysubmit\' name=\'alipaysubmit\' action=\'https://openapi.alipay.com/gateway.do?charset=UTF-8\' method=\'POST\'><input type=\'hidden\' name=\'biz_content\' value=\'{"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}\'/><input type=\'hidden\' name=\'app_id\' value=\'11\'/><input type=\'hidden\' name=\'version\' value=\'1.0\'/><input type=\'hidden\' name=\'format\' value=\'json\'/><input type=\'hidden\' name=\'sign_type\' value=\'RSA2\'/><input type=\'hidden\' name=\'method\' value=\'alipay.trade.page.pay\'/><input type=\'hidden\' name=\'timestamp\' value=\'2017-07-13 17:41:24\'/><input type=\'hidden\' name=\'alipay_sdk\' value=\'alipay-sdk-php-20161101\'/><input type=\'hidden\' name=\'notify_url\' value=\'http://外网可访问网关地址/alipay.trade.page.pay-PHP-UTF-8/notify_url.php\'/><input type=\'hidden\' name=\'return_url\' value=\'http://外网可访问网关地址/alipay.trade.page.pay-PHP-UTF-8/return_url.php\'/><input type=\'hidden\' name=\'charset\' value=\'UTF-8\'/><input type=\'hidden\' name=\'sign\' value=\'pyL39Ajk0zxiJRLHXOquZvRm4N4rm/MbGabioyGrly9mg8WcwNIGBOYFMa2JrtOnkgSAexbm03mI2d4qPGJDJg==\'/><input type=\'submit\' value=\'ok\' style=\'display:none;\'\'></form><script>document.forms[\'alipaysubmit\'].submit();</script>'
+2017-07-13 17:44:41  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}
+2017-07-13 17:44:41  response: '<form id=\'alipaysubmit\' name=\'alipaysubmit\' action=\'https://openapi.alipay.com/gateway.do?charset=UTF-8\' method=\'POST\'><input type=\'hidden\' name=\'biz_content\' value=\'{"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}\'/><input type=\'hidden\' name=\'app_id\' value=\'11\'/><input type=\'hidden\' name=\'version\' value=\'1.0\'/><input type=\'hidden\' name=\'format\' value=\'json\'/><input type=\'hidden\' name=\'sign_type\' value=\'RSA2\'/><input type=\'hidden\' name=\'method\' value=\'alipay.trade.page.pay\'/><input type=\'hidden\' name=\'timestamp\' value=\'2017-07-13 17:44:41\'/><input type=\'hidden\' name=\'alipay_sdk\' value=\'alipay-sdk-php-20161101\'/><input type=\'hidden\' name=\'notify_url\' value=\'http://外网可访问网关地址/alipay.trade.page.pay-PHP-UTF-8/notify_url.php\'/><input type=\'hidden\' name=\'return_url\' value=\'http://外网可访问网关地址/alipay.trade.page.pay-PHP-UTF-8/return_url.php\'/><input type=\'hidden\' name=\'charset\' value=\'UTF-8\'/><input type=\'hidden\' name=\'sign\' value=\'r5gHso4poSxHhCTgZrXkbYb+/qmHMrQ0wf7XsydQA7m/4e2AEPtX3WUWzq7fk36j+16BFWESqoxEQcjYXc9h6Q==\'/><input type=\'submit\' value=\'ok\' style=\'display:none;\'\'></form><script>document.forms[\'alipaysubmit\'].submit();</script>'
+2017-07-13 18:30:02  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}
+2017-07-13 18:30:02  response: '<form id=\'alipaysubmit\' name=\'alipaysubmit\' action=\'https://openapi.alipay.com/gateway.do?charset=UTF-8\' method=\'POST\'><input type=\'hidden\' name=\'biz_content\' value=\'{"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"","total_amount":"","out_trade_no":""}\'/><input type=\'hidden\' name=\'app_id\' value=\'11\'/><input type=\'hidden\' name=\'version\' value=\'1.0\'/><input type=\'hidden\' name=\'format\' value=\'json\'/><input type=\'hidden\' name=\'sign_type\' value=\'RSA2\'/><input type=\'hidden\' name=\'method\' value=\'alipay.trade.page.pay\'/><input type=\'hidden\' name=\'timestamp\' value=\'2017-07-13 18:30:02\'/><input type=\'hidden\' name=\'alipay_sdk\' value=\'alipay-sdk-php-20161101\'/><input type=\'hidden\' name=\'notify_url\' value=\'http://外网可访问网关地址/alipay.trade.page.pay-PHP-UTF-8/notify_url.php\'/><input type=\'hidden\' name=\'return_url\' value=\'http://外网可访问网关地址/alipay.trade.page.pay-PHP-UTF-8/return_url.php\'/><input type=\'hidden\' name=\'charset\' value=\'UTF-8\'/><input type=\'hidden\' name=\'sign\' value=\'UfnO8S1yo171aV7SPxGXdJV2EFVtSII0T0DW7/I3B9V7ZdA2YH/Nodpl3NvKdBeosM1Upyr7qq23MM1NdTMCRw==\'/><input type=\'submit\' value=\'ok\' style=\'display:none;\'\'></form><script>document.forms[\'alipaysubmit\'].submit();</script>'
+2017-07-14 14:31:53  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"三国战纪页面支付","total_amount":"25","out_trade_no":"PB793217071414263923695"}
+2017-07-14 14:31:53  response: '<form id=\'alipaysubmit\' name=\'alipaysubmit\' action=\'https://openapi.alipay.com/gateway.do?charset=UTF-8\' method=\'POST\'><input type=\'hidden\' name=\'biz_content\' value=\'{"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"三国战纪页面支付","total_amount":"25","out_trade_no":"PB793217071414263923695"}\'/><input type=\'hidden\' name=\'app_id\' value=\'11\'/><input type=\'hidden\' name=\'version\' value=\'1.0\'/><input type=\'hidden\' name=\'format\' value=\'json\'/><input type=\'hidden\' name=\'sign_type\' value=\'RSA2\'/><input type=\'hidden\' name=\'method\' value=\'alipay.trade.page.pay\'/><input type=\'hidden\' name=\'timestamp\' value=\'2017-07-14 14:31:53\'/><input type=\'hidden\' name=\'alipay_sdk\' value=\'alipay-sdk-php-20161101\'/><input type=\'hidden\' name=\'notify_url\' value=\'http://外网可访问网关地址/alipay.trade.page.pay-PHP-UTF-8/notify_url.php\'/><input type=\'hidden\' name=\'return_url\' value=\'http://外网可访问网关地址/alipay.trade.page.pay-PHP-UTF-8/return_url.php\'/><input type=\'hidden\' name=\'charset\' value=\'UTF-8\'/><input type=\'hidden\' name=\'sign\' value=\'TzB8XML8ymQ1aa/00CsQqI4jEkzEAFZMgIBMoxlSOcXW5yTL4FLz08TcP84uHq8cHySLlzgGE8u5jDIr7ODjiQ==\'/><input type=\'submit\' value=\'ok\' style=\'display:none;\'\'></form><script>document.forms[\'alipaysubmit\'].submit();</script>'
+2017-07-17 11:35:02  array (
+)
+2017-07-17 11:37:03  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"三国战纪页面支付","total_amount":"6","out_trade_no":"PB793217071711315214797"}
+2017-07-17 11:37:03  response: '<form id=\'alipaysubmit\' name=\'alipaysubmit\' action=\'https://openapi.alipay.com/gateway.do?charset=UTF-8\' method=\'POST\'><input type=\'hidden\' name=\'biz_content\' value=\'{"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"三国战纪页面支付","total_amount":"6","out_trade_no":"PB793217071711315214797"}\'/><input type=\'hidden\' name=\'app_id\' value=\'11\'/><input type=\'hidden\' name=\'version\' value=\'1.0\'/><input type=\'hidden\' name=\'format\' value=\'json\'/><input type=\'hidden\' name=\'sign_type\' value=\'RSA2\'/><input type=\'hidden\' name=\'method\' value=\'alipay.trade.page.pay\'/><input type=\'hidden\' name=\'timestamp\' value=\'2017-07-17 11:37:03\'/><input type=\'hidden\' name=\'alipay_sdk\' value=\'alipay-sdk-php-20161101\'/><input type=\'hidden\' name=\'notify_url\' value=\'http://ateam.ticp.io/site/alinotify\'/><input type=\'hidden\' name=\'return_url\' value=\'http://ateam.ticp.io/site/recharge\'/><input type=\'hidden\' name=\'charset\' value=\'UTF-8\'/><input type=\'hidden\' name=\'sign\' value=\'WY1kyji1TBvAssBef4IRyTP0x7hxHTSkbTBhNfNmxYiwi3Os4oyQHFuse4h1BT/Lk8UC2Wj3EuHYNULey8ctJg==\'/><input type=\'submit\' value=\'ok\' style=\'display:none;\'\'></form><script>document.forms[\'alipaysubmit\'].submit();</script>'
+2017-07-17 11:38:06  array (
+)
+2017-07-17 11:42:06  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"三国战纪页面支付","total_amount":"6","out_trade_no":"PB793217071711365572721"}
+2017-07-17 11:42:06  response: '<form id=\'alipaysubmit\' name=\'alipaysubmit\' action=\'https://openapi.alipay.com/gateway.do?charset=UTF-8\' method=\'POST\'><input type=\'hidden\' name=\'biz_content\' value=\'{"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"三国战纪页面支付","total_amount":"6","out_trade_no":"PB793217071711365572721"}\'/><input type=\'hidden\' name=\'app_id\' value=\'11\'/><input type=\'hidden\' name=\'version\' value=\'1.0\'/><input type=\'hidden\' name=\'format\' value=\'json\'/><input type=\'hidden\' name=\'sign_type\' value=\'RSA2\'/><input type=\'hidden\' name=\'method\' value=\'alipay.trade.page.pay\'/><input type=\'hidden\' name=\'timestamp\' value=\'2017-07-17 11:42:06\'/><input type=\'hidden\' name=\'alipay_sdk\' value=\'alipay-sdk-php-20161101\'/><input type=\'hidden\' name=\'notify_url\' value=\'http://ateam.ticp.io/site/alinotify\'/><input type=\'hidden\' name=\'return_url\' value=\'http://ateam.ticp.io/site/recharge\'/><input type=\'hidden\' name=\'charset\' value=\'UTF-8\'/><input type=\'hidden\' name=\'sign\' value=\'M/0muh6Hm2YF5FGgoi5zMIu/AQxeRLfS1qeHATvJd5YlAzN2WEtRp87Vpfv4wMvbx3v2SVoYaPzinM3oa3zMig==\'/><input type=\'submit\' value=\'ok\' style=\'display:none;\'\'></form><script>document.forms[\'alipaysubmit\'].submit();</script>'
+2017-07-17 11:42:50  array (
+)
+2017-07-17 11:43:32  array (
+)
+2017-07-17 11:44:18  array (
+)
+2017-07-17 11:44:40  array (
+)
+2017-07-17 12:01:17  array (
+  'out_trade_no' => ' PB793217071711365572721',
+  'trade_status' => 'TRADE_SUCCESS',
+)
+2017-07-17 12:02:06  array (
+  'out_trade_no' => ' PB793217071711365572721',
+  'trade_status' => 'TRADE_SUCCESS',
+)
+2017-07-17 12:02:47  array (
+  'out_trade_no' => ' PB793217071711365572721',
+  'trade_status' => 'TRADE_SUCCESS',
+)
+2017-07-17 12:03:43  array (
+  'out_trade_no' => ' PB793217071711365572721',
+  'trade_status' => 'TRADE_SUCCESS',
+)
+2017-07-17 12:03:57  array (
+  'out_trade_no' => ' PB793217071711365572721',
+  'trade_status' => 'TRADE_SUCCESS',
+)
+2017-07-17 12:04:27  array (
+  'out_trade_no' => 'PB793217071711365572721',
+  'trade_status' => 'TRADE_SUCCESS',
+)
+2017-07-17 12:05:29  {"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"三国战纪页面支付","total_amount":"6","out_trade_no":"PB793217071712001913513"}
+2017-07-17 12:05:29  response: '<form id=\'alipaysubmit\' name=\'alipaysubmit\' action=\'https://openapi.alipay.com/gateway.do?charset=UTF-8\' method=\'POST\'><input type=\'hidden\' name=\'biz_content\' value=\'{"product_code":"FAST_INSTANT_TRADE_PAY","body":"","subject":"三国战纪页面支付","total_amount":"6","out_trade_no":"PB793217071712001913513"}\'/><input type=\'hidden\' name=\'app_id\' value=\'11\'/><input type=\'hidden\' name=\'version\' value=\'1.0\'/><input type=\'hidden\' name=\'format\' value=\'json\'/><input type=\'hidden\' name=\'sign_type\' value=\'RSA2\'/><input type=\'hidden\' name=\'method\' value=\'alipay.trade.page.pay\'/><input type=\'hidden\' name=\'timestamp\' value=\'2017-07-17 12:05:29\'/><input type=\'hidden\' name=\'alipay_sdk\' value=\'alipay-sdk-php-20161101\'/><input type=\'hidden\' name=\'notify_url\' value=\'http://ateam.ticp.io/site/alinotify\'/><input type=\'hidden\' name=\'return_url\' value=\'http://ateam.ticp.io/site/recharge\'/><input type=\'hidden\' name=\'charset\' value=\'UTF-8\'/><input type=\'hidden\' name=\'sign\' value=\'KZfqdkkjZvd1eOdxOeoxmJKqY35iaJTMQiP5ncKjPDiPtdAYm6d65AWcXO6iQHpe0smnha234tmbvy8VGxBDNA==\'/><input type=\'submit\' value=\'ok\' style=\'display:none;\'\'></form><script>document.forms[\'alipaysubmit\'].submit();</script>'
+2017-07-17 12:05:50  array (
+)
+2017-07-17 12:06:25  array (
+  'out_trade_no' => 'PB793217071712001913513',
+  'trade_status' => 'TRADE_SUCCESS',
+)

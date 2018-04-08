@@ -1,0 +1,25 @@
+server {
+    listen 8083;
+    server_name localhost;
+
+    root '/opt/www/enjoymi_passport/public';
+    index index.php index.html index.htm;
+
+    access_log /var/log/nginx/access.log log_body;
+
+    try_files $uri $uri/ =404;
+
+    location ~ register\.php$ {
+        limit_conn perip 8;
+        limit_req zone=perreq burst=5;
+        fastcgi_pass unix:/var/run/php5-fpm.sock; 
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php5-fpm.sock; 
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }
+}
