@@ -1,0 +1,334 @@
+<?php
+
+final class NoticeController extends ControllerBase
+{
+    public function instantNoticeAction()
+    {
+    }
+
+    public function timingNoticeAction()
+    {
+    }
+
+    public function platformTimingNoticeAction()
+    {
+    }
+
+    public function listAction() 
+    {
+    }
+
+    public function platformRemoveNoticeAction()
+    {
+    }
+
+    public function sendInstantNoticeAction()
+    {
+        $this->view->disable();
+
+        // check auth
+        if ($this->hasAuth(AccountType::ADVANCED_GM) == false) {
+            return $this->error('not allowed');
+        }
+
+        // get params
+        $server_id = $this->request->get('server_id');
+        if ($server_id === null) {
+            return $this->error('`server_id` is required');
+        }
+        $message = $this->request->get('message');
+        if ($message === null) {
+            return $this->error('`message` is required');
+        }
+        $repeat_times = $this->request->get('repeat_times');
+        if ($repeat_times === null) {
+            return $this->error('`repeat_times` is required');
+        }
+        $interval_second = $this->request->get('interval_second');
+        if ($interval_second === null) {
+            return $this->error('`interval_second` is required');
+        }
+
+        // check server id
+        $server_model = $this->getVisableServerModel($server_id);
+        if ($server_model === false) {
+            return $this->error('`server_id` is invalid');
+        }
+
+        $ret = $this->slaveServerRequest(
+            $server_model->addr, $server_model->secret_key,
+            '/send_notice.php', array(
+                'start_send_time' => 0,
+                'message' => $message,
+                'repeat_times' => $repeat_times,
+                'interval_second' => $interval_second,
+            ));
+        if ($ret === false) {
+            return $this->error('request slave server failed');
+        }
+
+        // op log
+        $server_desc = $server_model->desc;
+        $notice_id = $ret['notice_id'];
+        $this->opLog("[Send an instant announcement] server: $server_desc ".
+                     "announcement ID: $notice_id ".
+                     "Number of transmissions: $repeat_times Send interval: $interval_second</br>".
+                     "official news: $message");
+
+        return $this->success($ret);
+    }
+
+    public function sendTimingNoticeAction()
+    {
+        $this->view->disable();
+
+        // check auth
+        if ($this->hasAuth(AccountType::ADVANCED_GM) == false) {
+            return $this->error('not allowed');
+        }
+
+        // get params
+        $server_id = $this->request->get('server_id');
+        if ($server_id === null) {
+            return $this->error('`server_id` is required');
+        }
+        $start_send_time = $this->request->get('start_send_time');
+        if ($start_send_time === null) {
+            return $this->error('`start_send_time` is required');
+        }
+        $message = $this->request->get('message');
+        if ($message === null) {
+            return $this->error('`message` is required');
+        }
+        $repeat_times = $this->request->get('repeat_times');
+        if ($repeat_times === null) {
+            return $this->error('`repeat_times` is required');
+        }
+        $interval_second = $this->request->get('interval_second');
+        if ($interval_second === null) {
+            return $this->error('`interval_second` is required');
+        }
+
+        // check server id
+        $server_model = $this->getVisableServerModel($server_id);
+        if ($server_model === false) {
+            return $this->error('`server_id` is invalid');
+        }
+
+        $ret = $this->slaveServerRequest(
+            $server_model->addr, $server_model->secret_key,
+            '/send_notice.php', array(
+                'start_send_time' => $start_send_time,
+                'message' => $message,
+                'repeat_times' => $repeat_times,
+                'interval_second' => $interval_second,
+            ));
+        if ($ret === false) {
+            return $this->error('request slave server failed');
+        }
+
+        // op_log
+        $server_desc = $server_model->desc;
+        $start_send_time_fmt = DataFormatter::timestamp($start_send_time);
+        $notice_id = $ret['notice_id'];
+        $this->opLog("[Send a regular announcement] server: $server_desc ".
+                     "announcement ID: $notice_id ".
+                     "Start sending time: $start_send_time_fmt ".
+                     "Number of transmissions: $repeat_times Send interval: $interval_second</br>".
+                     "official news: $message");
+
+        return $this->success($ret);
+    }
+
+    public function sendPlatformTimingNoticeAction()
+    {
+        $this->view->disable();
+
+        // check auth
+        if ($this->hasAuth(AccountType::ADVANCED_GM) == false) {
+            return $this->error('not allowed');
+        }
+
+        $platform_id = $this->request->get('platform_id');
+        if ($platform_id === null) {
+            return $this->error('`platform_id` is required');
+        }
+        $start_send_time = $this->request->get('start_send_time');
+        if ($start_send_time === null) {
+            return $this->error('`start_send_time` is required');
+        }
+        $message = $this->request->get('message');
+        if ($message === null) {
+            return $this->error('`message` is required');
+        }
+        $repeat_times = $this->request->get('repeat_times');
+        if ($repeat_times === null) {
+            return $this->error('`repeat_times` is required');
+        }
+        $interval_second = $this->request->get('interval_second');
+        if ($interval_second === null) {
+            return $this->error('`interval_second` is required');
+        }
+
+        // check platform_id
+        if ($this->getAccountPlatformId() != 0 &&
+            $this->getAccountPlatformId() != $platform_id) {
+            return $this->error('`platform_id` is invalid');
+        }
+
+        $request_list = array();
+        $server_model_list = ServerModel::find(array(
+            'conditions' => 'platform_id = :platform_id:',
+            'bind' => array(
+                'platform_id' => $platform_id,
+            ),
+        ));
+        foreach ($server_model_list as $server_model) {
+            array_push($request_list, array(
+                'addr' => $server_model->addr,
+                'secret_key' => $server_model->secret_key,
+                'uri' => '/send_notice.php',
+                'params' => array(
+                    'start_send_time' => $start_send_time,
+                    'message' => $message,
+                    'repeat_times' => $repeat_times,
+                    'interval_second' => $interval_second,
+                ),
+            ));
+        }
+        $ret_list = $this->multiSlaveServerRequest($request_list);
+
+        // op_log
+        $start_send_time_fmt = DataFormatter::timestamp($start_send_time);
+        $this->opLog("[Send a regular announcement(Follow the platform)] platform: $platform_id ".
+                     "Start sending time: $start_send_time_fmt ".
+                     "Number of transmissions: $repeat_times Send interval: $interval_second</br>".
+                     "official news: $message");
+
+        return $this->success(array(
+            'success' => true,
+        ));
+    }
+
+    public function getNoticeListAction()
+    {
+        $this->view->disable();
+
+        // check auth
+        if ($this->hasAuth(AccountType::ADVANCED_GM) == false) {
+            return $this->error('not allowed');
+        }
+
+        $server_id = $this->request->get('server_id');
+        if ($server_id === null) {
+            return $this->error('`server_id` is required');
+        }
+
+        // check server id
+        $server_model = $this->getVisableServerModel($server_id);
+        if ($server_model === false) {
+            return $this->error('`server_id` is invalid');
+        }
+
+        $ret = $this->slaveServerRequest(
+            $server_model->addr, $server_model->secret_key,
+            '/notice_list.php');
+        if ($ret === false) {
+            return $this->error('request slave server failed');
+        }
+
+        return $this->success($ret);
+    }
+
+    public function removeNoticeAction()
+    {
+        $this->view->disable();
+
+        // check auth
+        if ($this->hasAuth(AccountType::ADVANCED_GM) == false) {
+            return $this->error('not allowed');
+        }
+
+        $server_id = $this->request->get('server_id');
+        if ($server_id === null) {
+            return $this->error('`server_id` is required');
+        }
+        $notice_id = $this->request->get('notice_id');
+        if ($notice_id === null) {
+            return $this->error('`notice_id` is required');
+        }
+
+        // check server id
+        $server_model = $this->getVisableServerModel($server_id);
+        if ($server_model === false) {
+            return $this->error('`server_id` is invalid');
+        }
+
+        $ret = $this->slaveServerRequest(
+            $server_model->addr, $server_model->secret_key,
+            '/remove_notice.php', array(
+                'notice_id' => $notice_id,
+            ));
+        if ($ret === false) {
+            return $this->error('request slave server failed');
+        }
+
+        // op log
+        $server_desc = $server_model->desc;
+        $this->opLog("[Delete the announcement] server: $server_desc announcement ID: $notice_id");
+
+        return $this->success($ret);
+    }
+
+    public function doPlatformRemoveNoticeAction()
+    {
+        $this->view->disable();
+
+        // check auth
+        if ($this->hasAuth(AccountType::ADVANCED_GM) == false) {
+            return $this->error('not allowed');
+        }
+
+        $platform_id = $this->request->get('platform_id');
+        if ($platform_id === null) {
+            return $this->error('`platform_id` is required');
+        }
+        $notice_id = $this->request->get('notice_id');
+        if ($notice_id === null) {
+            return $this->error('`notice_id` is required');
+        }
+
+        // check platform_id
+        if ($this->getAccountPlatformId() != 0 &&
+            $this->getAccountPlatformId() != $platform_id) {
+            return $this->error('`platform_id` is invalid');
+        }
+
+        $request_list = array();
+        $server_model_list = ServerModel::find(array(
+            'conditions' => 'platform_id = :platform_id:',
+            'bind' => array(
+                'platform_id' => $platform_id,
+            ),
+        ));
+        foreach ($server_model_list as $server_model) {
+            array_push($request_list, array(
+                'addr' => $server_model->addr,
+                'secret_key' => $server_model->secret_key,
+                'uri' => '/remove_notice.php',
+                'params' => array(
+                    'notice_id' => $notice_id,
+                ),
+            ));
+        }
+        $ret_list = $this->multiSlaveServerRequest($request_list);
+
+        // op_log
+        $this->opLog("[Delete the announcement(Follow the platform)] platform: $platform_id ".
+                     "announcement_id: $notice_id");
+
+        return $this->success(array(
+            'success' => true,
+        ));
+    }
+}
