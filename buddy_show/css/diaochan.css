@@ -1,0 +1,143 @@
+/*====横屏====*/
+@media all and (orientation: landscape) {
+  .landscape {
+    position: relative;
+  }
+  .landscape .hero {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4.12921348rem;
+    height: 100%;
+    background: url('../img/huangyueying.png') no-repeat left top / cover;
+    z-index: 1;
+  }
+  .landscape .container .font-bg span {
+    float: left;
+  }
+  .landscape .container .font-bg span:nth-child(1) {
+    width: 0.14044944rem;
+    font-size: 10px;
+    color: #ffe1e1;
+    line-height: 1.2;
+    margin-left: 4px;
+    margin-top: 2px;
+    text-shadow: 3px 2px 2px #000;
+  }
+  .landscape .container .font-bg span:nth-child(2) {
+    width: 0.19662921rem;
+    font-size: 20px;
+    color: #ffb7a0;
+    line-height: 1;
+    margin-top: 0.25280899rem;
+    text-shadow: 3px 2px 2px #000;
+  }
+  .landscape .container .hero-introduce {
+    display: flex;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0.28089888rem;
+    top: 41%;
+    width: 2.88202247rem;
+    height: 18.5%;
+    padding: 0 0.08988764rem;
+    background: rgba(45, 31, 31, 0.7);
+    flex-direction: column;
+    justify-content: center;
+    z-index: 3;
+  }
+  .landscape .container .hero-introduce p {
+    font-size: 10px;
+    color: #ecd7d7;
+    text-indent: 2em;
+  }
+  .landscape .container .skill {
+    box-sizing: border-box;
+    position: absolute;
+    left: 0.28089888rem;
+    top: 63%;
+    width: 2.88202247rem;
+    height: 35%;
+    font-size: 10px;
+    color: #ecd7d7;
+    background: #251a1a;
+    z-index: 3;
+  }
+  .landscape .container .skill h3 {
+    display: flex;
+    box-sizing: border-box;
+    height: 17%;
+    font-size: 12px;
+    color: #ffb7a0;
+    align-items: center;
+    padding-left: 0.08988764rem;
+    background: #2c1f1f;
+  }
+  .landscape .container .skill .con {
+    display: flex;
+    height: 83%;
+    padding: 0 0.08988764rem;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .landscape .container .skill .con p:last-child {
+    color: #1af2ff;
+  }
+  .landscape .container .playarea {
+    position: absolute;
+    right: 0.14606742rem;
+    top: 0;
+    width: 3.88764045rem;
+    height: 100%;
+    z-index: 3;
+  }
+  .landscape .container .playarea .video {
+    height: 57%;
+    margin-top: 4.7%;
+  }
+  .landscape .container .playarea .video video {
+    width: 100%;
+    height: 100%;
+  }
+}
+.skill-btn {
+  height: 38.3%;
+  font-size: 10px;
+  color: #c4a1a1;
+}
+.skill-btn ul {
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+}
+.skill-btn ul li {
+  display: flex;
+  width: 0.50561798rem;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+.skill-btn ul li .pic {
+  position: relative;
+  height: 0.50561798rem;
+  margin-bottom: -50%;
+}
+.skill-btn ul li .pic img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .5;
+}
+.skill-btn ul li .pic .pic-bg {
+  position: absolute;
+  left: -0.04494382rem;
+  bottom: -0.0505618rem;
+  width: 0.58988764rem;
+  height: 0.74157303rem;
+}
+.skill-btn ul li .pic .pic-bg.on {
+  background: url('../img/active.png') no-repeat left top / cover;
+}

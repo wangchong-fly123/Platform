@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="Author" content="onaway">
+    <script>    //判断是手机端还是pc端
+        // function browserRedirect() {
+        //     var sUserAgent = navigator.userAgent.toLowerCase();
+        //     var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        //     var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        //     var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        //     var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        //     var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        //     var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        //     var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        //     var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        //     if (!(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) ){
+        //         window.location.href="http://www.baidu.com";
+        //     }
+        // }
+        // browserRedirect();
+    </script>
+    <script>
+        (function(doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = clientWidth / 7.5 + 'px';
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/huangyueying.css">
+    <link rel="stylesheet" href="./css//video-js.css">
+    <style>
+        .video-js {
+            width: 100%;
+            height: 100%;
+        }
+        .my-video-dimensions {
+            width: 100%;
+            height: 100%;
+        }
+        /*播放按钮定位*/
+        .vjs-big-play-centered .vjs-big-play-button {
+            top: 50%;
+            left: 50%;
+            margin-top: -1em;
+            margin-left: -1em;
+        }
+        /*按钮边框及背景*/
+        .video-js .vjs-big-play-button {
+            width: 2em;
+            height: 2em;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,.7);
+        }
+        .video-js .vjs-big-play-button>.vjs-icon-placeholder:before{
+            position: absolute;
+            top: 6px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="landscape">
+        <header class="header">武将快速了解</header>
+        <section class="hero"></section>
+        <section class="container">
+            <div class="bg"></div>
+            
+            <div class="font-bg">
+                <span>闭月羞花</span>
+                <span>黄月英</span>
+            </div>
+            <div class="hero-introduce">
+                <p>诸葛亮之妻，钟灵毓秀，腹有诗书，气质清华。幼时曾偶然吸收月辉精华，得神兵圆月星轮认主，可令星移斗转，逆转乾坤！</p>
+            </div>
+            <div class="skill">
+                <h3>斗转星移</h3>
+                <div class="con">
+                    <p>消耗能量：30</p>
+                    <p>冷却时间：8秒</p>
+                    <p>冰属性攻击</p>
+                    <p>甩出月轮造出飓风裂刃，将范围内目标聚集到飓风阵中疯狂绞杀，造成伤害！</p>
+                </div>
+            </div>
+            <div class="playarea">
+                <div class="video">
+                    <video id="my-video" class="video-js vjs-default-skin vjs-big-play-centered" poster="img/1.jpg" controls preload="none" data-setup={}>
+                        <source src="http://hotupdate.enjoymi.com/videos/heros/huangyueying/1.mp4" type="video/mp4"/> 
+                        <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track>
+                        <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track>
+                    </video>
+                </div>
+                <div class="skill-btn">
+                    <ul>
+                        <li>
+                            <div class="pic">
+                                <img src="img/douzhuanxingyi.png" alt="">
+                                <div class="pic-bg"></div>
+                            </div>
+                            <p>斗转星移</p>
+                        </li>
+                        <li>
+                            <div class="pic">
+                                <img src="img/riyueqiankun.png" alt="">
+                                <div class="pic-bg"></div>
+                            </div>
+                            <p>日月乾坤</p>
+                        </li>
+                        <li>
+                            <div class="pic">
+                                <img src="img/muniuliuma.png" alt="">
+                                <div class="pic-bg"></div>
+                            </div>
+                            <p>木牛流马</p>
+                        </li>
+                        <li>
+                            <div class="pic">
+                                <img src="img/xingliutingji.png" alt="">
+                                <div class="pic-bg"></div>
+                            </div>
+                            <p>星流霆击</p>
+                        </li>
+                        <li>
+                            <div class="pic">
+                                <img src="img/combo-skills.png" alt="">
+                                <div class="pic-bg"></div>
+                            </div>
+                            <p>连招技巧</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="portrait">
+        <div class="picture">
+            <img src="img/landscape.png" alt="">
+            <p>为了更好的体验，请将手机横过来</p>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/video.min.js"></script>
+    <script>
+        //横竖屏手机的判断
+        (function(){
+            var landscape = document.querySelector('.landscape');
+            var portrait = document.querySelector('.portrait');
+            function rotateScreen(){
+                if (window.orientation === 180 || window.orientation === 0) {  
+                    // alert('竖屏状态！'); 
+                    landscape.style.display = 'none';
+                    portrait.style.display = 'block';
+                }  
+                if (window.orientation === 90 || window.orientation === -90 ){  
+                    // alert('横屏状态！'); 
+                    landscape.style.display = 'block';
+                    portrait.style.display = 'none';
+                }  
+            }
+            rotateScreen();
+            window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function() { 
+                rotateScreen();
+            }, false);
+        })();
+
+        //点击技能icon改变视频src和技能介绍
+        $(function(){
+            var $container = $('.container'),
+                $title = $container.find('.skill h3'),
+                $p = $container.find('.skill .con p'),
+                $li = $container.find('.playarea ul li'),
+                $liTitle = $li.find('p'),
+                $btn = $li.find('.pic'),
+                $video = $container.find('.playarea video'),
+                videoArr = ['http://hotupdate.enjoymi.com/videos/heros/huangyueying/1.mp4',
+                            'http://hotupdate.enjoymi.com/videos/heros/huangyueying/2.mp4',
+                            'http://hotupdate.enjoymi.com/videos/heros/huangyueying/3.mp4',
+                            'http://hotupdate.enjoymi.com/videos/heros/huangyueying/4.mp4',
+                            'http://hotupdate.enjoymi.com/videos/heros/huangyueying/combo.mp4',
+                ],
+                titleArr = [
+                    {p1:"蓝耗：40",p2:"冷却时间：8秒",p3:"风属性攻击",p4:"甩出月轮造出飓风裂刃，将范围内目标聚集到飓风阵中疯狂绞杀，月轮甩动时可以破霸体。"},
+                    {p1:"蓝耗：45",p2:"冷却时间：10秒",p3:"爆属性攻击",p4:"一跃而起悬浮在空中，从空中扫射月刃，轰击地面目标，该技能可以在跳跃后、受击时释放。"},
+                    {p1:"蓝耗：65",p2:"冷却时间：3秒",p3:"火属性攻击",p4:"召唤木牛流马向前方喷射火焰，释放后黄月英将提高30%的移动速度。"},
+                    {p1:"蓝耗：0，怒气消耗：100",p2:"冷却时间：30秒",p3:"冰属性攻击",p4:"喷射激光扫荡前方目标，随后摆放激光射线，射线会在场景中存在10S，进行4轮攻击"},
+                    {p1:"蓝耗：130",p2:"无限连招",p3:"冰属性攻击",p4:"连续脚踢目标将其击退，并造成伤害"} 
+                ];
+
+            $btn.eq(0).children('.pic-bg').addClass('on');
+            $btn.eq(0).children('img').css('opacity',1);
+            $btn.on('touchstart',function(){
+                var index = $(this).index('.pic');
+                var title = $btn.eq(index).siblings().html();
+                $btn.eq(index).children('.pic-bg').addClass('on');
+                $btn.eq(index).parent().siblings().children('.pic').children('.pic-bg').removeClass('on');
+                $btn.eq(index).children('img').css('opacity',1);
+                $btn.eq(index).parent().siblings().children('.pic').children('img').css('opacity',.5);
+                $video.attr('src',videoArr[index]);
+                $video.attr('autoplay','autoplay');
+                $title.html(title);
+                
+                $p.each(function(i){
+                    $p.eq(i).html(titleArr[index]['p'+(i+1)]);
+                });
+            });
+        });
+
+        //video插件
+        var myPlayer = videojs('my-video');
+        videojs("my-video").ready(function(){
+            var myPlayer = this;
+            myPlayer.pause();
+        });
+    </script>
+</body>
+</html>

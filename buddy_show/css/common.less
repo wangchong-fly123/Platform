@@ -1,0 +1,93 @@
+@rem: 178rem;
+@rem1: 100rem;
+
+/*====字体适配====*/
+@media screen and (max-width: 321px) {
+    body {
+      font-size: 15px;
+    }
+}
+@media screen and (min-width: 321px) and (max-width: 400px) {
+    body {
+      font-size: 16px;
+    }
+}
+@media screen and (min-width: 400px) {
+    body {
+      font-size: 18px;
+    }
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    background: #160f0f;
+}
+
+
+/*====竖屏====*/
+@media all and (orientation: portrait) {
+    .portrait{
+        width: 100%;
+        height: 100%;
+        .picture{
+            display: flex;
+            width: 100%;
+            height: 100%;
+            font-size: 16px;
+            color: #fff;
+            background: #333;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            img{
+                display: block;
+                width: 250/@rem1;
+                height: 230/@rem1;
+                margin-bottom: 20/@rem1;
+            }
+        }
+    }
+}
+
+/*====横屏====*/
+@media all and (orientation: landscape) {
+    .landscape{
+        width: 100%;
+        height: 100%;
+
+        /*头部区域*/
+        .header{
+            display: flex;
+            position: relative;
+            height: 9.33%;
+            font-size: 16px;
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        /*内容区域*/
+        .container{
+            position: relative;
+            height: 90.67%;
+            // background: skyblue;
+            .bg{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 640/@rem;
+                height: 100%;
+                background: url('../img/bg.png')no-repeat left top/cover;
+            }
+            .font-bg{
+                position: absolute;
+                left: 34.56%;
+                top: 10/@rem;
+                width: 84/@rem;
+                height: 210/@rem;
+                background: url('../img/font-bg.png')no-repeat left top/contain;
+                z-index: 3;
+            }
+        }
+    }
+}

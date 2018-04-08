@@ -1,0 +1,162 @@
+@rem: 178rem;
+
+/*====横屏====*/
+@media all and (orientation: landscape) {
+    .landscape{
+        position: relative;
+        .hero{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 735/@rem;
+            height: 100%;
+            background: url('../img/huangyueying.png')no-repeat left top/cover;
+            z-index: 1;
+        }
+        .container{
+            .font-bg{
+                span{
+                    float: left;
+                    &:nth-child(1){
+                        width: 25/@rem;
+                        font-size: 10px;
+                        color: #ffe1e1;
+                        line-height: 1.2;
+                        margin-left: 4px;
+                        margin-top: 2px;
+                        text-shadow: 3px 2px 2px #000;
+                    }
+                    &:nth-child(2){
+                        width: 35/@rem;
+                        font-size: 20px;
+                        color: #ffb7a0;
+                        line-height: 1;
+                        margin-top: 45/@rem;
+                        text-shadow: 3px 2px 2px #000;
+                    }
+                }
+            }
+            .hero-introduce{
+                display: flex;
+                box-sizing: border-box;
+                position: absolute;
+                left: 50/@rem;
+                // top: 44.85%;
+                top: 41%;
+                width: 513/@rem;
+                // height: 16%;
+                height: 18.5%;
+                padding: 0 16/@rem;
+                background: rgba(45,31,31,.7);
+                flex-direction: column;
+                justify-content: center;
+                z-index: 3;
+                p{
+                    font-size: 10px;
+                    color: #ecd7d7;
+                    text-indent: 2em;
+                }
+            }
+            .skill{
+                box-sizing: border-box;
+                position: absolute;
+                left: 50/@rem;
+                top: 63%;
+                width: 513/@rem;
+                // height: 33%;
+                height: 35%;
+                font-size: 10px;
+                color: #ecd7d7;
+                background: #251a1a;
+                z-index: 3;
+                h3{
+                    display: flex;
+                    box-sizing: border-box;
+                    // height: 18%;
+                    height: 17%;
+                    font-size: 12px;
+                    color: #ffb7a0;
+                    align-items: center;
+                    padding-left: 16/@rem;
+                    background: #2c1f1f;
+                }
+                .con{
+                    display: flex;
+                    // height: 82%;
+                    height: 83%;
+                    padding: 0 16/@rem;
+                    flex-direction: column;
+                    justify-content: center;
+                    p{
+                        &:nth-child(3){
+                            color: #1af2ff;
+                        }
+                    }
+                }
+            }
+            .playarea{
+                position: absolute;
+                right: 26/@rem;
+                top: 0;
+                width: 690/@rem;
+                height: 100%;
+                z-index: 3;
+                .video{
+                    width: 650/@rem;
+                    height: 61.7%;
+                    margin: 0 auto;
+                    // margin-top: 4.7%;
+                    border: 1px solid #ffb7a0;
+                    video{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    } 
+}
+
+.skill-btn{
+    height: 38.3%;
+    font-size: 10px;
+    color: #c4a1a1;
+    ul{
+        display: flex;
+        height: 100%;
+        justify-content: space-around;
+        li{
+            display: flex;
+            // position: relative;
+            width: 90/@rem;
+            height: 100%;
+            flex-direction: column;
+            justify-content: space-around;
+            text-align: center;
+            .pic{
+                position: relative;
+                height: 90/@rem;
+                height: 90/@rem;
+                margin-bottom: -50%;
+                img{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    opacity: .5;
+                }
+                .pic-bg{
+                    position: absolute;
+                    left: -8/@rem;
+                    bottom: -9/@rem;
+                    width: 105/@rem;
+                    height: 132/@rem;
+                    &.on{
+                        background: url('../img/active.png')no-repeat left top/cover;
+                    }
+                }
+            }
+        }
+    }
+}

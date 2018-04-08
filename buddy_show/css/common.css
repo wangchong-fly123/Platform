@@ -1,0 +1,85 @@
+/*====字体适配====*/
+@media screen and (max-width: 321px) {
+  body {
+    font-size: 15px;
+  }
+}
+@media screen and (min-width: 321px) and (max-width: 400px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 400px) {
+  body {
+    font-size: 18px;
+  }
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: #160f0f;
+}
+/*====竖屏====*/
+@media all and (orientation: portrait) {
+  .portrait {
+    width: 100%;
+    height: 100%;
+  }
+  .portrait .picture {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    color: #fff;
+    background: #333;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .portrait .picture img {
+    display: block;
+    width: 2.5rem;
+    height: 2.3rem;
+    margin-bottom: 0.2rem;
+  }
+}
+/*====横屏====*/
+@media all and (orientation: landscape) {
+  .landscape {
+    width: 100%;
+    height: 100%;
+    /*头部区域*/
+    /*内容区域*/
+  }
+  .landscape .header {
+    display: flex;
+    position: relative;
+    height: 9.33%;
+    font-size: 16px;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+  }
+  .landscape .container {
+    position: relative;
+    height: 90.67%;
+  }
+  .landscape .container .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3.59550562rem;
+    height: 100%;
+    background: url('../img/bg.png') no-repeat left top / cover;
+  }
+  .landscape .container .font-bg {
+    position: absolute;
+    left: 34.56%;
+    top: 0.05617978rem;
+    width: 0.47191011rem;
+    height: 1.17977528rem;
+    background: url('../img/font-bg.png') no-repeat left top / contain;
+    z-index: 3;
+  }
+}
